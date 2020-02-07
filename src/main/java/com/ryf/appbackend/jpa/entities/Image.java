@@ -13,8 +13,8 @@ public class Image {
     @Column(name = "image_name")
     private String imageName;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "file")
+    private String file;
 
     public int getId() {
         return id;
@@ -32,11 +32,13 @@ public class Image {
         this.imageName = imageName;
     }
 
-    public String getLocation() {
-        return location;
+    public String getFile() {
+        return file;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setFile(String file) {
+        this.file = file;
     }
+
+
 }
