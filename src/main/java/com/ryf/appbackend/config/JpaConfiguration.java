@@ -3,6 +3,7 @@ package com.ryf.appbackend.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,10 +12,11 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableTransactionManagement
+//@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "com.ryf.appbackend.jpa.entities")
 public class JpaConfiguration {
 
-    @Value("${db.driver}")
+  /*  @Value("${db.driver}")
     private String DB_DRIVER;
 
     @Value("${db.password}")
@@ -36,9 +38,9 @@ public class JpaConfiguration {
     private String HIBERNATE_HBM2DDL_AUTO;
 
     @Value("${entitymanager.packagesToScan}")
-    private String ENTITYMANAGER_PACKAGES_TO_SCAN;
+    private String ENTITYMANAGER_PACKAGES_TO_SCAN;*/
 
-    @Bean(name="entityManagerFactory")
+   /* @Bean(name="entityManagerFactory")
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
@@ -58,7 +60,7 @@ public class JpaConfiguration {
         dataSource.setUsername(DB_USERNAME);
         dataSource.setPassword(DB_PASSWORD);
         return dataSource;
-    }
+    }*/
 
 /*    @Bean
     public HibernateTransactionManager transactionManager() {

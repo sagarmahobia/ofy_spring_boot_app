@@ -1,17 +1,17 @@
-db:
-  driver: com.mysql.cj.jdbc.Driver
-  password: ''
-  url: jdbc:mysql://localhost:3306/ryf_youth_opportunities
-  username: root
+#db:
+#  driver: com.mysql.cj.jdbc.Driver
+#  password: ''
+#  url: jdbc:mysql://localhost:3306/ryf_youth_opportunities
+#  username: root
+#
+#entitymanager:
+#  packagesToScan: com.ryf.appbackend.jpa.entities
 
-entitymanager:
-  packagesToScan: com.ryf.appbackend.jpa.entities
-
-hibernate:
-  dialect: org.hibernate.dialect.MySQL5Dialect
-  hbm2ddl:
-    auto: update
-  show_sql: true
+#hibernate:
+#  dialect: org.hibernate.dialect.MySQL5Dialect
+#  hbm2ddl:
+#    auto: update
+#  show_sql: true
 
 logging:
   level:
@@ -25,8 +25,14 @@ server:
 spring:
   datasource:
     password: ''
-    url: jdbc:mysql://localhost:3306/ryf_youth_opportunities
+    url: jdbc:mysql://localhost:3306/ofy
     username: root
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
   resources:
     static-locations: classpath:/static/
   servlet:

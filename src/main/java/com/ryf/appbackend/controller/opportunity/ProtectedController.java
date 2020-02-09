@@ -156,11 +156,9 @@ public class ProtectedController {
 
         OpportunityEntity one = opportunityDao.getOne(id);
 
-        Image imageToDelete = one.getImage();
+        Image imageEntity = one.getImage();
 
-        amazonClient.deleteFileFromS3Bucket(imageToDelete.getFile());
-        imageDao.delete(imageToDelete);
-
+        amazonClient.deleteFileFromS3Bucket(imageEntity.getFile());
 
         int length = 32;
         boolean useLetters = true;
@@ -172,7 +170,6 @@ public class ProtectedController {
 
         amazonClient.uploadFile(newImage, imageName);
 
-        Image imageEntity = new Image();
         imageEntity.setImageName(newImage.getOriginalFilename());
         imageEntity.setFile(imageName);
 
@@ -198,9 +195,9 @@ public class ProtectedController {
 
         Image image = one.getImage();
 
-        amazonClient.deleteFileFromS3Bucket(image.getFile());
-        imageDao.delete(image);
         opportunityDao.delete(one);
+        imageDao.delete(image);
+        amazonClient.deleteFileFromS3Bucket(image.getFile());
 
         return new Status("Success");
     }
