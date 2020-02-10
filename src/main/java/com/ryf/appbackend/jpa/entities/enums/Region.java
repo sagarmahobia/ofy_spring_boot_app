@@ -7,6 +7,7 @@ import java.util.Map;
 public enum Region {
     // @formatter:off
 
+    WW("Global", "GLO", 1),
     /**
      * <a href="http://en.wikipedia.org/wiki/Andorra">Andorra</a>
      */
