@@ -2,7 +2,7 @@ package com.ryf.appbackend.jpa.entities.enums;
 
 public enum FundingType {
 
-    FullyFunded("Fully Funded"), PartiallyFunded("Partially Funded"), SelfFunded("Self Funded");
+    NONE("None"), FullyFunded("Fully Funded"), PartiallyFunded("Partially Funded"), SelfFunded("Self Funded");
 
     private String name;
 

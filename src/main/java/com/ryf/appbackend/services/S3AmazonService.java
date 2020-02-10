@@ -1,13 +1,11 @@
-package com.ryf.appbackend.s3test.serviceimpl;
+package com.ryf.appbackend.services;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.policy.resources.S3ObjectResource;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
@@ -21,10 +19,9 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
 
 @Service
-public class AmazonClient {
+public class S3AmazonService {
 
     private AmazonS3 s3client;
 
@@ -40,7 +37,7 @@ public class AmazonClient {
     @Value("${amazonProperties.secretKey}")
     private String secretKey;
 
-    private Logger logger = LoggerFactory.getLogger(AmazonClient.class);
+    private Logger logger = LoggerFactory.getLogger(S3AmazonService.class);
 
     @PostConstruct
     private void initializeAmazon() {
@@ -82,6 +79,7 @@ public class AmazonClient {
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
         return "Successfully deleted";
     }
+
 
     private void uploadFileTos3bucket(String fileName, File file) {
         PutObjectResult putObjectResult = s3client.putObject(

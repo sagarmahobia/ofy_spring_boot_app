@@ -21,5 +21,4 @@ public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
     List<OpportunityEntity> findAllByOpportunityTypeAndRegion(OpportunityType opportunityType, Region region);
 
 
-
 }

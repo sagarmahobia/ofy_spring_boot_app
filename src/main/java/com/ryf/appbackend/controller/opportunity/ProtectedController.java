@@ -11,7 +11,7 @@ import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jwtsecurity.model.JwtUser;
 import com.ryf.appbackend.jwtsecurity.security.JwtUtil;
-import com.ryf.appbackend.s3test.serviceimpl.AmazonClient;
+import com.ryf.appbackend.services.S3AmazonService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +28,13 @@ public class ProtectedController {
     private final JwtUtil jwtUtil;
     private final OpportunityDao opportunityDao;
     private final ImageDao imageDao;
-    private AmazonClient amazonClient;
+    private S3AmazonService s3AmazonService;
 
-    public ProtectedController(JwtUtil jwtUtil, OpportunityDao opportunityDao, ImageDao imageDao, AmazonClient amazonClient) {
+    public ProtectedController(JwtUtil jwtUtil, OpportunityDao opportunityDao, ImageDao imageDao, S3AmazonService s3AmazonService) {
         this.jwtUtil = jwtUtil;
         this.opportunityDao = opportunityDao;
         this.imageDao = imageDao;
-        this.amazonClient = amazonClient;
+        this.s3AmazonService = s3AmazonService;
     }
 
 
@@ -58,18 +58,18 @@ public class ProtectedController {
     @ResponseBody
     public Status addOpportunity(
 
-            @RequestParam("title") String title,
-            @RequestParam("opportunity_type") OpportunityType opportunityType,
-            @RequestParam("funding_type") FundingType fundingType,
-            @RequestParam("region") Region region,
-            @RequestParam("deadline") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
-            @RequestParam("image") MultipartFile image,
-            @RequestParam("eligibility") String eligibility,
-            @RequestParam("application_process") String applicationProcess,
-            @RequestParam("benefit") String benefit,
-            @RequestParam("other") String other,
-            @RequestParam("description") String description,
-            @RequestParam("url") String url
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
+            @RequestParam(value = "funding_type", required = false) FundingType fundingType,
+            @RequestParam(value = "region", required = false) Region region,
+            @RequestParam(value = "deadline", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
+            @RequestParam(value = "image") MultipartFile image,
+            @RequestParam(value = "eligibility", required = false) String eligibility,
+            @RequestParam(value = "application_process", required = false) String applicationProcess,
+            @RequestParam(value = "benefit", required = false) String benefit,
+            @RequestParam(value = "other", required = false) String other,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "url", required = false) String url
 
 
     ) {
@@ -82,7 +82,7 @@ public class ProtectedController {
 
         String imageName = generatedString + "." + getFileExtension(image.getOriginalFilename());
 
-        amazonClient.uploadFile(image, imageName);
+        s3AmazonService.uploadFile(image, imageName);
 
         Image imageEntity = new Image();
         imageEntity.setImageName(image.getOriginalFilename());
@@ -113,17 +113,17 @@ public class ProtectedController {
     @ResponseBody
     public Status editOpportunity(
             @RequestParam("id") long id,
-            @RequestParam("title") String title,
-            @RequestParam("opportunity_type") OpportunityType opportunityType,
-            @RequestParam("funding_type") FundingType fundingType,
-            @RequestParam("region") Region region,
-            @RequestParam("deadline") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
-            @RequestParam("eligibility") String eligibility,
-            @RequestParam("application_process") String applicationProcess,
-            @RequestParam("benefit") String benefit,
-            @RequestParam("other") String other,
-            @RequestParam("description") String description,
-            @RequestParam("url") String url
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
+            @RequestParam(value = "funding_type", required = false) FundingType fundingType,
+            @RequestParam(value = "region", required = false) Region region,
+            @RequestParam(value = "deadline", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
+            @RequestParam(value = "eligibility", required = false) String eligibility,
+            @RequestParam(value = "application_process", required = false) String applicationProcess,
+            @RequestParam(value = "benefit", required = false) String benefit,
+            @RequestParam(value = "other", required = false) String other,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "url", required = false) String url
 
     ) {
 
@@ -158,7 +158,7 @@ public class ProtectedController {
 
         Image imageEntity = one.getImage();
 
-        amazonClient.deleteFileFromS3Bucket(imageEntity.getFile());
+        s3AmazonService.deleteFileFromS3Bucket(imageEntity.getFile());
 
         int length = 32;
         boolean useLetters = true;
@@ -168,7 +168,7 @@ public class ProtectedController {
 
         String imageName = generatedString + "." + getFileExtension(newImage.getOriginalFilename());
 
-        amazonClient.uploadFile(newImage, imageName);
+        s3AmazonService.uploadFile(newImage, imageName);
 
         imageEntity.setImageName(newImage.getOriginalFilename());
         imageEntity.setFile(imageName);
@@ -197,7 +197,7 @@ public class ProtectedController {
 
         opportunityDao.delete(one);
         imageDao.delete(image);
-        amazonClient.deleteFileFromS3Bucket(image.getFile());
+        s3AmazonService.deleteFileFromS3Bucket(image.getFile());
 
         return new Status("Success");
     }

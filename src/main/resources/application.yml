@@ -1,32 +1,25 @@
-#db:
-#  driver: com.mysql.cj.jdbc.Driver
-#  password: ''
-#  url: jdbc:mysql://localhost:3306/ryf_youth_opportunities
-#  username: root
-#
-#entitymanager:
-#  packagesToScan: com.ryf.appbackend.jpa.entities
-
-#hibernate:
-#  dialect: org.hibernate.dialect.MySQL5Dialect
-#  hbm2ddl:
-#    auto: update
-#  show_sql: true
-
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
 server:
   port: 8888
 
 
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+
+
 spring:
   datasource:
-    password: ''
-    url: jdbc:mysql://localhost:3306/ofy
-    username: root
+    password: 'ooffyy663399'
+    url: jdbc:mysql://ofy-mysql-1:3306/ofy
+    username: ofy
+
+#spring:
+#  datasource:
+#    password: ''
+#    url: jdbc:mysql://localhost:3306/ofy
+#    username: root
 
   jpa:
     show-sql: true
@@ -42,23 +35,6 @@ spring:
       max-request-size: 10MB
       enabled: true
 
-#
-#
-#app:
-#  awsServices:
-#    bucketName: my-demo-s3-test
-#  endpoint:
-#    api: /api
-#    uploadFiles: ${app.endpoint.api}/upload-files
-#cloud:
-#  aws:
-#    credentials:
-#      accessKey: AKIAZROWR4YJZHW3PWXI
-#      secretKey: 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
-#    region:
-#      static: Global
-#    stack:
-#      auto: false
 
 amazonProperties:
   endpointUrl: https://s3.us-east-1.amazonaws.com

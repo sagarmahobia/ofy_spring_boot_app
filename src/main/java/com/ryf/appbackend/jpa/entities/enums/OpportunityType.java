@@ -8,9 +8,12 @@ public enum OpportunityType {
     EXCHANGE_PROGRAMS("Exchange Program"),
     FELLOWSHIPS("Fellowship"),
     GRANTS("Grants"),
-    INTERNSHIP("Internship"),
-    SCHOLARSHIPS("Scholarship"),
-    WORKSHOPS("Workshop");
+    WORKSHOPS("Workshop"),
+    MISCELLANEOUS("Miscellaneous"),
+    SCHOLARSHIPS("Scholarship");
+
+    //    INTERNSHIP("Internship"),
+
 
     private String name;
 

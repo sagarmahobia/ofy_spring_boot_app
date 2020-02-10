@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.ryf</groupId>
     <artifactId>appbackend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2.2</version>
     <name>appbackend</name>
-    <description>RYF Backend project for App</description>
+    <description>OFY Backend project for App</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -33,10 +33,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--      <dependency>
-                  <groupId>org.springframework.cloud</groupId>
-                  <artifactId>spring-cloud-starter-aws</artifactId>
-              </dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -110,8 +106,11 @@
                 <version>0.9.0</version>
 
                 <configuration>
+                    <from>
+                        <image>openjdk:8-jre-alpine</image>
+                    </from>
                     <to>
-                        <image>appbackend</image>
+                        <image>appbackend:0.2.2</image>
                     </to>
                 </configuration>
             </plugin>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 public enum Region {
     // @formatter:off
+
     /**
      * <a href="http://en.wikipedia.org/wiki/Andorra">Andorra</a>
      */
@@ -1383,5 +1384,13 @@ public enum Region {
     public static Region getByCode(int code) {
         return numericMap.get(code);
     }
+/*
+    public static void main(String[] args) {
+        for (Region value : Region.values()) {
+            System.out.println(
+                    " <mat-option value=\"" + value.toString() + "\">" + value.getName() + "</mat-option>"
+            );
+        }
+    }*/
 }
 
