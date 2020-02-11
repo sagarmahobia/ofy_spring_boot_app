@@ -1,4 +1,4 @@
-package com.ryf.appbackend.services;
+package com.ryf.appbackend.core.services;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;

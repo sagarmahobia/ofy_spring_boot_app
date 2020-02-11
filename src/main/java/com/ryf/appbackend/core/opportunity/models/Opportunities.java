@@ -1,4 +1,4 @@
-package com.ryf.appbackend.controller.opportunity.models;
+package com.ryf.appbackend.core.opportunity.models;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ public class Opportunities {
     private List<Opportunity> conferences;
     private List<Opportunity> exchangePrograms;
     private List<Opportunity> fellowships;
-    //    private List<Opportunity> internship;
+        private List<Opportunity> internship;
     private List<Opportunity> scholarships;
     private List<Opportunity> workshops;
     private List<Opportunity> grants;
@@ -47,13 +47,13 @@ public class Opportunities {
         this.fellowships = fellowships;
     }
 
-//    public List<Opportunity> getInternship() {
-//        return internship;
-//    }
-//
-//    public void setInternship(List<Opportunity> internship) {
-//        this.internship = internship;
-//    }
+    public List<Opportunity> getInternship() {
+        return internship;
+    }
+
+    public void setInternship(List<Opportunity> internship) {
+        this.internship = internship;
+    }
 
     public List<Opportunity> getMiscellaneous() {
         return miscellaneous;

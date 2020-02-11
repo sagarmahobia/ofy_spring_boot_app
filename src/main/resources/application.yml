@@ -30,11 +30,10 @@ spring:
     static-locations: classpath:/static/
   servlet:
     multipart:
-      file-size-threshold: 2MB
-      max-file-size: 5MB
-      max-request-size: 10MB
+      file-size-threshold: 300KB
+      max-file-size: 300KB
+      max-request-size: 1MB
       enabled: true
-
 
 amazonProperties:
   endpointUrl: https://s3.us-east-1.amazonaws.com

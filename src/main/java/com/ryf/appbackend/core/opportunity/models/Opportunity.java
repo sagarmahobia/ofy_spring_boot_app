@@ -1,4 +1,4 @@
-package com.ryf.appbackend.controller.opportunity.models;
+package com.ryf.appbackend.core.opportunity.models;
 
 public class Opportunity {
 

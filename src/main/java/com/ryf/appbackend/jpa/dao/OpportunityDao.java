@@ -12,13 +12,11 @@ import java.util.List;
 @Repository
 public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
 
-    List<OpportunityEntity> findAllByOpportunityType(OpportunityType opportunityType);
-
     List<OpportunityEntity> findAllByOpportunityType(OpportunityType opportunityType, Pageable pageable);
 
-    List<OpportunityEntity> findAllByRegion(Region region);
+    List<OpportunityEntity> findAllByRegion(Region region, Pageable pageable);
 
-    List<OpportunityEntity> findAllByOpportunityTypeAndRegion(OpportunityType opportunityType, Region region);
+    List<OpportunityEntity> findAllByOpportunityTypeAndRegion(OpportunityType opportunityType, Region region, Pageable pageable);
 
 
 }

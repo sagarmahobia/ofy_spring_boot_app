@@ -1,4 +1,4 @@
-package com.ryf.appbackend.services;
+package com.ryf.appbackend.core.services;
 
 
 import org.springframework.stereotype.Component;

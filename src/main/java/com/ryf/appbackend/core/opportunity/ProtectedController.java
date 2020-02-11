@@ -1,7 +1,7 @@
-package com.ryf.appbackend.controller.opportunity;
+package com.ryf.appbackend.core.opportunity;
 
 import com.ryf.appbackend.InvalidInputException;
-import com.ryf.appbackend.controller.opportunity.models.Status;
+import com.ryf.appbackend.core.opportunity.models.Status;
 import com.ryf.appbackend.jpa.dao.ImageDao;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
 import com.ryf.appbackend.jpa.entities.Image;
@@ -11,7 +11,7 @@ import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jwtsecurity.model.JwtUser;
 import com.ryf.appbackend.jwtsecurity.security.JwtUtil;
-import com.ryf.appbackend.services.S3AmazonService;
+import com.ryf.appbackend.core.services.S3AmazonService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;

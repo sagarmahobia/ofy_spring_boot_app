@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ryf</groupId>
     <artifactId>appbackend</artifactId>
-    <version>0.2.2</version>
+    <version>0.2.4</version>
     <name>appbackend</name>
     <description>OFY Backend project for App</description>
 
@@ -110,7 +110,7 @@
                         <image>openjdk:8-jre-alpine</image>
                     </from>
                     <to>
-                        <image>appbackend:0.2.3</image>
+                        <image>appbackend:0.2.4</image>
                     </to>
                 </configuration>
             </plugin>

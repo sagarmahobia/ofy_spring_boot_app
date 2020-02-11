@@ -1,4 +1,4 @@
-package com.ryf.appbackend.controller.opportunity.models;
+package com.ryf.appbackend.core.opportunity.models;
 
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 

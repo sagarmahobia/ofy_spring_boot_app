@@ -1,4 +1,4 @@
-package com.ryf.appbackend.controller.opportunity;
+package com.ryf.appbackend.core.opportunity;
 
 
 import org.springframework.stereotype.Controller;

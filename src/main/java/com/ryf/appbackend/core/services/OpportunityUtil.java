@@ -1,6 +1,6 @@
-package com.ryf.appbackend.services;
+package com.ryf.appbackend.core.services;
 
-import com.ryf.appbackend.controller.opportunity.models.Opportunity;
+import com.ryf.appbackend.core.opportunity.models.Opportunity;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import org.springframework.stereotype.Component;
 
