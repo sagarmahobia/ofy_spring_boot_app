@@ -24,13 +24,34 @@ public class OpportunityUtil {
 
         opportunity.setId(one.getId());
         opportunity.setTitle(one.getTitle());
-        opportunity.setDeadline(one.getDeadline().toString());//todo to date
 
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        if (one.getDeadline() != null) {
+
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+            opportunity.setDeadlineString(simpleDateFormat.format(one.getDeadline()));
 
 
-        opportunity.setDeadlineString(simpleDateFormat.format(one.getDeadline()));
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            String dateString = format.format(one.getDeadline());
+            opportunity.setDeadline(dateString);
+
+
+            //calculate difference
+            long diffInMillies = one.getDeadline().getTime() - (new Date().getTime());
+            if (diffInMillies > 0) {
+                long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+                //format date
+                opportunity.setTimeLeft(String.format("%d Days Left", diff));
+            } else {
+                opportunity.setTimeLeft("Ended");
+            }
+        } else {
+            opportunity.setTimeLeft("Open");
+            opportunity.setDeadline("Always Open");
+
+        }
 
 
         opportunity.setRegion(one.getRegion().getName());
@@ -51,20 +72,7 @@ public class OpportunityUtil {
 
         opportunity.setUrl(one.getUrl());
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        String dateString = format.format(one.getDeadline());
-
-        opportunity.setDeadline(dateString);
-
-        //calculate difference
-        long diffInMillies = one.getDeadline().getTime() - (new Date().getTime());
-        if (diffInMillies > 0) {
-            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-            //format date
-            opportunity.setTimeLeft(String.format("%d Days Left", diff));
-        } else {
-            opportunity.setTimeLeft("Ended");
-        }
+        opportunity.setApply_url(one.getApplyUrl());
 
 
         return opportunity;

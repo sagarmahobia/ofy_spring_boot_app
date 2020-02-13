@@ -1,7 +1,17 @@
 package com.ryf.appbackend.core.opportunity.models;
 
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 
+import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Category {
 
     private String id;
@@ -12,7 +22,6 @@ public class Category {
 
     private OpportunityType opportunityType;
 
-
     public Category(OpportunityType type, String image) {
         this.opportunityType = type;
         this.id = type.toString();
@@ -20,35 +29,4 @@ public class Category {
         this.image = image;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public OpportunityType getOpportunityType() {
-        return opportunityType;
-    }
-
-    public void setOpportunityType(OpportunityType opportunityType) {
-        this.opportunityType = opportunityType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

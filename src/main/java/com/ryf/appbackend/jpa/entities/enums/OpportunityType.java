@@ -5,7 +5,7 @@ public enum OpportunityType {
 
     COMPETITIONS("Competition"),
     CONFERENCES("Conference"),
-    EXCHANGE_PROGRAMS("Exchange Program"),
+//    EXCHANGE_PROGRAMS("Exchange Program"),
     INTERNSHIP("Internship"),
     FELLOWSHIPS("Fellowship"),
     GRANTS("Grants"),

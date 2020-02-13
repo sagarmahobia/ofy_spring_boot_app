@@ -69,9 +69,8 @@ public class ProtectedController {
             @RequestParam(value = "benefit", required = false) String benefit,
             @RequestParam(value = "other", required = false) String other,
             @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "url", required = false) String url
-
-
+            @RequestParam(value = "url", required = false) String url,
+            @RequestParam(value = "apply_url", required = false) String applyUrl
     ) {
 
         int length = 32;
@@ -96,7 +95,11 @@ public class ProtectedController {
         opportunityEntity.setOpportunityType(opportunityType);
         opportunityEntity.setFundingType(fundingType);
         opportunityEntity.setRegion(region);
-        opportunityEntity.setDeadline(new java.sql.Date(deadline.getTime()));
+
+        if (deadline != null) {
+            opportunityEntity.setDeadline(new java.sql.Date(deadline.getTime()));
+        }
+
         opportunityEntity.setImage(savedImage);
         opportunityEntity.setEligibility(eligibility);
         opportunityEntity.setApplication_process(applicationProcess);
@@ -104,6 +107,7 @@ public class ProtectedController {
         opportunityEntity.setOther(other);
         opportunityEntity.setDescription(description);
         opportunityEntity.setUrl(url);
+        opportunityEntity.setApplyUrl(applyUrl);
 
         opportunityDao.save(opportunityEntity);
         return new Status("SUCCESS");
@@ -123,7 +127,8 @@ public class ProtectedController {
             @RequestParam(value = "benefit", required = false) String benefit,
             @RequestParam(value = "other", required = false) String other,
             @RequestParam(value = "description", required = false) String description,
-            @RequestParam(value = "url", required = false) String url
+            @RequestParam(value = "url", required = false) String url,
+            @RequestParam(value = "apply_url", required = false) String applyUrl
 
     ) {
 
@@ -141,6 +146,7 @@ public class ProtectedController {
         opportunityEntity.setOther(other);
         opportunityEntity.setDescription(description);
         opportunityEntity.setUrl(url);
+        opportunityEntity.setApplyUrl(applyUrl);
 
         opportunityDao.save(opportunityEntity);
 

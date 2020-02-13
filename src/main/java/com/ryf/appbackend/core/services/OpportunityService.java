@@ -34,8 +34,8 @@ public class OpportunityService {
         List<OpportunityEntity> grants = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.GRANTS, page, size);
         opportunities.setGrants(opportunityUtil.getOpportunityFromEntityList(grants));
 
-        List<OpportunityEntity> exchangePrograms = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.EXCHANGE_PROGRAMS, page, size);
-        opportunities.setExchangePrograms(opportunityUtil.getOpportunityFromEntityList(exchangePrograms));
+//        List<OpportunityEntity> exchangePrograms = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.EXCHANGE_PROGRAMS, page, size);
+//        opportunities.setExchangePrograms(opportunityUtil.getOpportunityFromEntityList(exchangePrograms));
 
         List<OpportunityEntity> internships = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.INTERNSHIP, page, size);
         opportunities.setInternship(opportunityUtil.getOpportunityFromEntityList(internships));

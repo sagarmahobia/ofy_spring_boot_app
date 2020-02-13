@@ -6,8 +6,10 @@ public enum Region {
     // @formatter:off
     WW("Global"),
 
+
     DV("Multiple Region"),// DV - diverse , multiple
 
+    OL("Online"),
 
     /**
      * <a href="http://en.wikipedia.org/wiki/Andorra">Andorra</a>
@@ -409,6 +411,9 @@ public enum Region {
      * <a href="http://en.wikipedia.org/wiki/Georgia_(country)">Georgia</a>
      */
     GE("Georgia"),
+
+
+    GV("Geneva"),
 
     /**
      * <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana</a>

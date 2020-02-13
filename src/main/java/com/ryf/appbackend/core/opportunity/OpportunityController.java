@@ -88,15 +88,15 @@ public class OpportunityController {
     public List<Category> categories() {
         return Arrays.asList(
 
-                new Category(OpportunityType.COMPETITIONS, "categoryimages/competition.png"),
+                new Category(OpportunityType.COMPETITIONS, "categoryimages/competitions.png"),
                 new Category(OpportunityType.CONFERENCES, "categoryimages/conference.png"),
-                new Category(OpportunityType.EXCHANGE_PROGRAMS, "categoryimages/exchange-program.png"),
-                new Category(OpportunityType.INTERNSHIP, "categoryimages/exchange-program.png"),
+//                new Category(OpportunityType.EXCHANGE_PROGRAMS, "categoryimages/exchange-program.png"),
+                new Category(OpportunityType.INTERNSHIP, "categoryimages/internship.png"),
                 new Category(OpportunityType.FELLOWSHIPS, "categoryimages/fellowship.png"),
                 new Category(OpportunityType.GRANTS, "categoryimages/grant.png"),
                 new Category(OpportunityType.SCHOLARSHIPS, "categoryimages/scholarship.png"),
                 new Category(OpportunityType.WORKSHOPS, "categoryimages/workshop.png"),
-                new Category(OpportunityType.MISCELLANEOUS, "categoryimages/workshop.png")
+                new Category(OpportunityType.MISCELLANEOUS, "categoryimages/miscellaneous.png")
 
         );
     }
