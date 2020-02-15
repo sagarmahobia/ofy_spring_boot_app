@@ -22,11 +22,14 @@ public class OpportunityService {
 
 
     public Opportunities getOpportunitiesForHome() {
-        Opportunities opportunities = new Opportunities();
 
+        Opportunities opportunities = new Opportunities();
 
         int page = 0;
         int size = 8;
+
+        List<OpportunityEntity> featured = opportunityRepository.getFeaturedOpportunitiesByPageAndSize(page, size);
+        opportunities.setFeatured(opportunityUtil.getOpportunityFromEntityList(featured));
 
         List<OpportunityEntity> competitions = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.COMPETITIONS, page, size);
         opportunities.setCompetitions(opportunityUtil.getOpportunityFromEntityList(competitions));

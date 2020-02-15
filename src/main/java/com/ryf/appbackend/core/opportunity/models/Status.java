@@ -1,16 +1,16 @@
 package com.ryf.appbackend.core.opportunity.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 public class Status {
 
     private String status;
+
+    private boolean newState;
 
 }

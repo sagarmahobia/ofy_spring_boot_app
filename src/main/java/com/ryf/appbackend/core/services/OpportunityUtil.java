@@ -74,6 +74,7 @@ public class OpportunityUtil {
 
         opportunity.setApply_url(one.getApplyUrl());
 
+        opportunity.setFeatured(one.getFeatured());
 
         return opportunity;
     }

@@ -47,7 +47,9 @@ public class Opportunity {
     private String other;
 
     private String url;
+
     private String apply_url;
 
+    private boolean featured;
 
 }

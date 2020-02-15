@@ -14,6 +14,8 @@ public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
 
     List<OpportunityEntity> findAllByOpportunityType(OpportunityType opportunityType, Pageable pageable);
 
+    List<OpportunityEntity> findAllByFeatured(boolean featured, Pageable pageable);
+
     List<OpportunityEntity> findAllByRegion(Region region, Pageable pageable);
 
     List<OpportunityEntity> findAllByOpportunityTypeAndRegion(OpportunityType opportunityType, Region region, Pageable pageable);

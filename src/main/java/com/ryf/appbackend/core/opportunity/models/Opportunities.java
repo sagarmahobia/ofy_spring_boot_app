@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 public class Opportunities {
 
+    private List<Opportunity> featured;
     private List<Opportunity> competitions;
     private List<Opportunity> conferences;
     private List<Opportunity> exchangePrograms;

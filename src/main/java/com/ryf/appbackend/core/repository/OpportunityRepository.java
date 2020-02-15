@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -29,6 +30,11 @@ public class OpportunityRepository {
     OpportunityUtil opportunityUtil;
 
 
+    public List<OpportunityEntity> getFeaturedOpportunitiesByPageAndSize(int page, int size) {
+        List<OpportunityEntity> allByFeatured = opportunityDao.findAllByFeatured(true, getPageRequestForIdDefending(page, size));
+        return allByFeatured;
+    }
+
     /**
      * @param opportunityType type
      * @param page            start at 0
@@ -37,7 +43,6 @@ public class OpportunityRepository {
      */
     public List<OpportunityEntity> getOpportunitiesByPageAndSize(OpportunityType opportunityType, int page, int size) {
         return opportunityDao.findAllByOpportunityType(opportunityType, getPageRequestForIdDefending(page, size));
-
     }
 
     public List<OpportunityEntity> findAll(int page, int size) {

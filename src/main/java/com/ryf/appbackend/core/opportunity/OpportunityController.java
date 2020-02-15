@@ -44,6 +44,22 @@ public class OpportunityController {
         return opportunityService.getOpportunitiesForHome();
     }
 
+    /*
+     *
+     * PRIORITIZED (featured & type)
+     *
+     * */
+    @RequestMapping(path = "/api/v1/public/opportunities/featured")
+    @ResponseBody
+    public List<Opportunity> featuredOpportunityList(
+            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
+            @RequestParam(value = "size", required = true, defaultValue = "10") int size
+
+    ) {
+
+        return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getFeaturedOpportunitiesByPageAndSize(page, size));
+    }
+
     @RequestMapping(path = "/api/v1/public/opportunities/{type}")
     @ResponseBody
     public List<Opportunity> opportunityList(
@@ -52,8 +68,15 @@ public class OpportunityController {
             @RequestParam(value = "size", required = true, defaultValue = "10") int size
 
     ) {
+
         return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getOpportunitiesByPageAndSize(type, page, size));
     }
+
+    /*
+     *
+     *
+     *
+     * */
 
 
     @RequestMapping(path = "/api/v1/public/opportunities/{type}/{region}")

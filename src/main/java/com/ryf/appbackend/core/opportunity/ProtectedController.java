@@ -110,7 +110,7 @@ public class ProtectedController {
         opportunityEntity.setApplyUrl(applyUrl);
 
         opportunityDao.save(opportunityEntity);
-        return new Status("SUCCESS");
+        return Status.builder().status("Success").build();
     }
 
     @PostMapping(path = "/api/v1/protected/edit_opportunity")
@@ -150,7 +150,7 @@ public class ProtectedController {
 
         opportunityDao.save(opportunityEntity);
 
-        return new Status("SUCCESS");
+        return Status.builder().status("Success").build();
     }
 
     @PostMapping(path = "/api/v1/protected/edit_image")
@@ -187,7 +187,7 @@ public class ProtectedController {
         opportunityDao.save(one);
 
 
-        return new Status("SUCCESS");
+        return Status.builder().status("Success").build();
 
     }
 
@@ -205,7 +205,23 @@ public class ProtectedController {
         imageDao.delete(image);
         s3AmazonService.deleteFileFromS3Bucket(image.getFile());
 
-        return new Status("Success");
+        return Status.builder().status("Success").build();
+    }
+
+    @PostMapping(path = "/api/v1/protected/toggle_featured")
+    @ResponseBody
+    public Status toggleFeatured(
+            @RequestParam("id") long id
+    ) {
+
+        OpportunityEntity one = opportunityDao.getOne(id);
+
+        one.setFeatured(!one.getFeatured());
+
+
+        opportunityDao.save(one);
+
+        return new Status("Success", one.getFeatured());
     }
 
     private static String getFileExtension(String fileName) {

@@ -22,7 +22,7 @@ public class OpportunityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -36,7 +36,7 @@ public class OpportunityEntity {
     @Enumerated(EnumType.STRING)
     private Region region;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
 
@@ -64,4 +64,8 @@ public class OpportunityEntity {
 
     @Column(name = "apply_url")
     private String applyUrl;
+
+    @Column(name = "featured", columnDefinition = "boolean default false")
+    private Boolean featured;
+
 }
