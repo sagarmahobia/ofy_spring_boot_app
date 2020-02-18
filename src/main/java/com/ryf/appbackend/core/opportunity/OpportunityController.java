@@ -69,6 +69,11 @@ public class OpportunityController {
 
     ) {
 
+        if (type == OpportunityType.WORKSHOPS || type == OpportunityType.MISCELLANEOUS) {
+            return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, OpportunityType.MISCELLANEOUS, page, size));
+
+        }
+
         return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getOpportunitiesByPageAndSize(type, page, size));
     }
 
@@ -109,6 +114,8 @@ public class OpportunityController {
     @RequestMapping(path = "/api/v1/public/categories")
     @ResponseBody
     public List<Category> categories() {
+        Category category = new Category(OpportunityType.MISCELLANEOUS, "categoryimages/workshop.png");
+        category.setTitle("Workshop");
         return Arrays.asList(
 
                 new Category(OpportunityType.COMPETITIONS, "categoryimages/competitions.png"),
@@ -118,7 +125,7 @@ public class OpportunityController {
                 new Category(OpportunityType.FELLOWSHIPS, "categoryimages/fellowship.png"),
                 new Category(OpportunityType.GRANTS, "categoryimages/grant.png"),
                 new Category(OpportunityType.SCHOLARSHIPS, "categoryimages/scholarship.png"),
-                new Category(OpportunityType.WORKSHOPS, "categoryimages/workshop.png"),
+                category,
                 new Category(OpportunityType.MISCELLANEOUS, "categoryimages/miscellaneous.png")
 
         );

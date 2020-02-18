@@ -8,6 +8,7 @@ import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,7 +20,6 @@ public class OpportunityService {
 
     @Autowired
     OpportunityRepository opportunityRepository;
-
 
     public Opportunities getOpportunitiesForHome() {
 
@@ -40,6 +40,8 @@ public class OpportunityService {
 //        List<OpportunityEntity> exchangePrograms = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.EXCHANGE_PROGRAMS, page, size);
 //        opportunities.setExchangePrograms(opportunityUtil.getOpportunityFromEntityList(exchangePrograms));
 
+        opportunities.setExchangePrograms(opportunityUtil.getOpportunityFromEntityList(new ArrayList<>()));
+
         List<OpportunityEntity> internships = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.INTERNSHIP, page, size);
         opportunities.setInternship(opportunityUtil.getOpportunityFromEntityList(internships));
 
@@ -49,15 +51,16 @@ public class OpportunityService {
         List<OpportunityEntity> conferences = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.CONFERENCES, page, size);
         opportunities.setConferences(opportunityUtil.getOpportunityFromEntityList(conferences));
 
-        List<OpportunityEntity> workshops = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, page, size);
-        opportunities.setWorkshops(opportunityUtil.getOpportunityFromEntityList(workshops));
+//        List<OpportunityEntity> workshops = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, page, size);
+//        opportunities.setWorkshops(opportunityUtil.getOpportunityFromEntityList(workshops));
+
+        opportunities.setWorkshops(opportunityUtil.getOpportunityFromEntityList(new ArrayList<>()));
 
         List<OpportunityEntity> scholarships = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.SCHOLARSHIPS, page, size);
         opportunities.setScholarships(opportunityUtil.getOpportunityFromEntityList(scholarships));
 
-        List<OpportunityEntity> miscellaneous = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.MISCELLANEOUS, page, size);
+        List<OpportunityEntity> miscellaneous = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, OpportunityType.MISCELLANEOUS, page, size);
         opportunities.setMiscellaneous(opportunityUtil.getOpportunityFromEntityList(miscellaneous));
-
 
         return opportunities;
 

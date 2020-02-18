@@ -45,6 +45,10 @@ public class OpportunityRepository {
         return opportunityDao.findAllByOpportunityType(opportunityType, getPageRequestForIdDefending(page, size));
     }
 
+    public List<OpportunityEntity> getOpportunitiesByPageAndSize(OpportunityType opportunityType1, OpportunityType opportunityType2, int page, int size) {
+        return opportunityDao.findAllByOpportunityTypeOrOpportunityType(opportunityType1, opportunityType2, getPageRequestForIdDefending(page, size));
+    }
+
     public List<OpportunityEntity> findAll(int page, int size) {
         return opportunityDao.findAll(getPageRequestForIdDefending(page, size)).getContent();
     }

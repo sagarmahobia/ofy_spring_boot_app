@@ -16,10 +16,10 @@ spring:
     username: ofy
 
 #spring:
-#  datasource:
-#    password: ''
-#    url: jdbc:mysql://localhost:3306/ofy
-#    username: root
+  #  datasource:
+  #    password: ''
+  #    url: jdbc:mysql://localhost:3306/ofy
+  #    username: root
 
   jpa:
     show-sql: true

@@ -1,16 +1,19 @@
 package com.ryf.appbackend.jwtsecurity.model;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class JwtUser {
-    private int id;
 
-    public JwtUser(int id) {
-        this.id = id;
+    private String id;
 
-    }
-
-    public int getId() {
-        return id;
-    }
-
+    private String role;
 
 }

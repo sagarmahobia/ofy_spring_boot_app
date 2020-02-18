@@ -1,7 +1,7 @@
 package com.ryf.appbackend.core.opportunity;
 
-import com.ryf.appbackend.InvalidInputException;
 import com.ryf.appbackend.core.opportunity.models.Status;
+import com.ryf.appbackend.core.services.S3AmazonService;
 import com.ryf.appbackend.jpa.dao.ImageDao;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
 import com.ryf.appbackend.jpa.entities.Image;
@@ -9,9 +9,6 @@ import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
-import com.ryf.appbackend.jwtsecurity.model.JwtUser;
-import com.ryf.appbackend.jwtsecurity.security.JwtUtil;
-import com.ryf.appbackend.core.services.S3AmazonService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -25,34 +22,16 @@ import java.util.Date;
 @RestController
 public class ProtectedController {
 
-    private final JwtUtil jwtUtil;
     private final OpportunityDao opportunityDao;
     private final ImageDao imageDao;
     private S3AmazonService s3AmazonService;
 
-    public ProtectedController(JwtUtil jwtUtil, OpportunityDao opportunityDao, ImageDao imageDao, S3AmazonService s3AmazonService) {
-        this.jwtUtil = jwtUtil;
+    public ProtectedController(OpportunityDao opportunityDao, ImageDao imageDao, S3AmazonService s3AmazonService) {
         this.opportunityDao = opportunityDao;
         this.imageDao = imageDao;
         this.s3AmazonService = s3AmazonService;
     }
 
-
-    @PostMapping(path = "/api/v1/public/login")
-    @ResponseBody
-    public Token getUser(@RequestParam("username") String user, @RequestParam("password") String password) {
-
-
-        if (user.equals("sagar@ofy.com") && password.equals("Password")) {
-            String generate = jwtUtil.generate(new JwtUser(100));
-            Token token = new Token();
-            token.token = generate;
-
-            return token;
-        } else {
-            throw new InvalidInputException();
-        }
-    }
 
     @PostMapping(path = "/api/v1/protected/add_opportunity")
     @ResponseBody
@@ -230,15 +209,5 @@ public class ProtectedController {
         else return "";
     }
 
-    class Token {
-        private String token;
 
-        public String getToken() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
-    }
 }

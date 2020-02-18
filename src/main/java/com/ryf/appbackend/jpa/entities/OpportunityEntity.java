@@ -68,4 +68,16 @@ public class OpportunityEntity {
     @Column(name = "featured", columnDefinition = "boolean default false")
     private Boolean featured;
 
+
+    public Boolean getFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+
+        if (featured == null)
+            this.featured = false;
+        else
+            this.featured = featured;
+    }
 }
