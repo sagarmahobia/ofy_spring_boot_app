@@ -1,4 +1,4 @@
-package com.ryf.appbackend.core.opportunity.models;
+package com.ryf.appbackend.core.controller.models;
 
 import lombok.*;
 
@@ -12,5 +12,7 @@ public class Status {
     private String status;
 
     private boolean newState;
+
+    private boolean currentState;
 
 }

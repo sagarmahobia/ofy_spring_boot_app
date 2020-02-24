@@ -1,20 +1,23 @@
-package com.ryf.appbackend.core.opportunity;
+package com.ryf.appbackend.core.controller.admin;
 
-import com.ryf.appbackend.core.opportunity.models.Status;
+import com.ryf.appbackend.core.controller.models.Status;
 import com.ryf.appbackend.core.services.S3AmazonService;
 import com.ryf.appbackend.jpa.dao.ImageDao;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
+import com.ryf.appbackend.jpa.dao.UserDao;
 import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
+import com.ryf.appbackend.jpa.entities.user.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 
 @SuppressWarnings("Duplicates")
@@ -25,15 +28,17 @@ public class ProtectedController {
     private final OpportunityDao opportunityDao;
     private final ImageDao imageDao;
     private S3AmazonService s3AmazonService;
+    private UserDao userDao;
 
-    public ProtectedController(OpportunityDao opportunityDao, ImageDao imageDao, S3AmazonService s3AmazonService) {
+    public ProtectedController(OpportunityDao opportunityDao, ImageDao imageDao, S3AmazonService s3AmazonService, UserDao userDao) {
         this.opportunityDao = opportunityDao;
         this.imageDao = imageDao;
+        this.userDao = userDao;
         this.s3AmazonService = s3AmazonService;
     }
 
 
-    @PostMapping(path = "/api/v1/protected/add_opportunity")
+    @PostMapping(path = "/api/v1/protected/admin/add_opportunity")
     @ResponseBody
     public Status addOpportunity(
 
@@ -92,7 +97,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/edit_opportunity")
+    @PostMapping(path = "/api/v1/protected/admin/edit_opportunity")
     @ResponseBody
     public Status editOpportunity(
             @RequestParam("id") long id,
@@ -132,7 +137,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/edit_image")
+    @PostMapping(path = "/api/v1/protected/admin/edit_image")
     @ResponseBody
     public Status editImage(
             @RequestParam("id") long id,
@@ -170,7 +175,7 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/delete")
+    @PostMapping(path = "/api/v1/protected/admin/delete")
     @ResponseBody
     public Status deleteOpportunity(
             @RequestParam("id") long id
@@ -187,27 +192,30 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/toggle_featured")
+    @PostMapping(path = "/api/v1/protected/admin/toggle_featured")
     @ResponseBody
     public Status toggleFeatured(
             @RequestParam("id") long id
     ) {
 
         OpportunityEntity one = opportunityDao.getOne(id);
-
         one.setFeatured(!one.getFeatured());
-
-
         opportunityDao.save(one);
+        return Status.builder().status("Success").newState(one.getFeatured()).build();
 
-        return new Status("Success", one.getFeatured());
     }
+
+    @PostMapping(path = "/api/v1/protected/admin/users")
+    public List<User> getUsers() {
+        return userDao.findAll();
+    }
+
 
     private static String getFileExtension(String fileName) {
-        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        int lastIndexOf = fileName.lastIndexOf(".");
+        if (lastIndexOf != -1 && lastIndexOf != 0)
+            return fileName.substring(lastIndexOf + 1);
         else return "";
     }
-
 
 }

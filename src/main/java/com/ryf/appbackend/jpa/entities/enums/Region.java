@@ -1308,7 +1308,7 @@ public enum Region {
 
 
 /*
-    public static void main(String[] args) {
+    open static void main(String[] args) {
         for (Region value : Region.values()) {
             System.out.println(
                     " <mat-option value=\"" + value.toString() + "\">" + value.getName() + "</mat-option>"

@@ -1,5 +1,4 @@
-package com.ryf.appbackend.core.opportunity.models;
-
+package com.ryf.appbackend.core.controller.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

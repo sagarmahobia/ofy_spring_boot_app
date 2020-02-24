@@ -1,4 +1,4 @@
-package com.ryf.appbackend.core.opportunity.models;
+package com.ryf.appbackend.core.controller.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Opportunities {
+ public class Opportunities {
 
     private List<Opportunity> featured;
     private List<Opportunity> competitions;

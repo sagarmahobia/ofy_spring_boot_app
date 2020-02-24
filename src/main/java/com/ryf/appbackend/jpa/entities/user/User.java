@@ -4,6 +4,8 @@ package com.ryf.appbackend.jpa.entities.user;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+import java.util.Set;
 
 
 @Entity(name = "users")
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
+@Transactional
 public class User {
 
 
@@ -46,5 +49,9 @@ public class User {
 
     @Column(name = "locale")
     private String locale;
+
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<Bookmark> bookmarks;
 
 }

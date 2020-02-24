@@ -16,7 +16,7 @@ public class JwtUserDetails implements UserDetails {
 
     @Getter
     @Setter
-    private String id;
+    private Long id;
 
     @Getter
     @Setter
@@ -69,35 +69,29 @@ class Role {
 
 
     /*
-+-----------+------+-----------+---------+-------+
-| Privilege | User | Moderator | Manager | Admin |
-+-----------+------+-----------+---------+-------+
-| Get       | Yes  | Yes       | Yes     | Yes   |
-+-----------+------+-----------+---------+-------+
-| Create    | No   | Yes       | Yes     | Yes   |
-+-----------+------+-----------+---------+-------+
-| Update   | No   | No        | Yes     | Yes   |
-+-----------+------+-----------+---------+-------+
-| Delete    | No   | No        | No      | No    |
-+-----------+------+-----------+---------+-------+
++-----------+------+-----------+-------+
+| Privilege | User | Moderator | Admin |
++-----------+------+-----------+-------+
+| Get       | Yes  | Yes       | Yes   |
++-----------+------+-----------+-------+
+| Create    | No   | Yes       | Yes   |
++-----------+------+-----------+-------+
+| Update    | No   | No        | Yes   |
++-----------+------+-----------+-------+
+| Delete    | No   | No        | No    |
++-----------+------+-----------+-------+
 
-
-    * */
-    //TODO USE
-
-//    private static List<String> user = Arrays.asList("GET");
-//    private List<String> moderator = Arrays.asList("GET", "CREATE");
-//    private List<String> manager = Arrays.asList("GET", "CREATE", "UPDATE");
-//    private static List<String> admin = Arrays.asList("GET", "CREATE", "UPDATE", "DELETE");
-
-
-    private static List<String> user = Arrays.asList("GET");
-    private static List<String> admin = Arrays.asList("GET", "MODIFY");
+ */
+    private static List<String> user = Arrays.asList("GET", "MODIFY_USER");
+    private static List<String> moderator = Arrays.asList("GET", "MODIFY_MODERATOR");
+    private static List<String> admin = Arrays.asList("GET", "MODIFY_ADMIN");
 
     static List<String> getByRole(String role) {
         switch (role.toLowerCase()) {
             case "user":
                 return user;
+            case "moderator":
+                return moderator;
             case "admin":
                 return admin;
         }

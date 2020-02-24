@@ -1,9 +1,8 @@
-package com.ryf.appbackend.core.opportunity;
+package com.ryf.appbackend.core.controller.open;
 
-
-import com.ryf.appbackend.core.opportunity.models.Category;
-import com.ryf.appbackend.core.opportunity.models.Opportunities;
-import com.ryf.appbackend.core.opportunity.models.Opportunity;
+import com.ryf.appbackend.core.controller.models.Category;
+import com.ryf.appbackend.core.controller.models.Opportunities;
+import com.ryf.appbackend.core.controller.models.Opportunity;
 import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.core.services.OpportunityService;
 import com.ryf.appbackend.core.services.OpportunityUtil;
@@ -24,7 +23,12 @@ public class OpportunityController {
     private OpportunityRepository opportunityRepository;
     private OpportunityService opportunityService;
 
-    public OpportunityController(OpportunityDao opportunityDao, OpportunityUtil opportunityUtil, OpportunityRepository opportunityRepository, OpportunityService opportunityService) {
+    public OpportunityController(
+            OpportunityDao opportunityDao,
+            OpportunityUtil opportunityUtil,
+            OpportunityRepository opportunityRepository,
+            OpportunityService opportunityService
+    ) {
         this.opportunityDao = opportunityDao;
         this.opportunityUtil = opportunityUtil;
         this.opportunityRepository = opportunityRepository;
@@ -53,7 +57,7 @@ public class OpportunityController {
     @ResponseBody
     public List<Opportunity> featuredOpportunityList(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "size", required = true, defaultValue = "10") int size
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
 
     ) {
 
@@ -65,7 +69,7 @@ public class OpportunityController {
     public List<Opportunity> opportunityList(
             @PathVariable OpportunityType type,
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
-            @RequestParam(value = "size", required = true, defaultValue = "10") int size
+            @RequestParam(value = "size", required = false, defaultValue = "10") int size
 
     ) {
 

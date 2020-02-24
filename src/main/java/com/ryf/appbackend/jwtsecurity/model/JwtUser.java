@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JwtUser {
 
-    private String id;
+    private Long id;
 
     private String role;
 
