@@ -1,4 +1,4 @@
-package com.ryf.appbackend.core.controller.models;
+package com.ryf.appbackend.models.dto;
 
 
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
@@ -7,12 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public   class Category {
+public class Category {
 
     private String id;
 

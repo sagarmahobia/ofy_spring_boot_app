@@ -96,5 +96,11 @@ public class S3AmazonService {
         return convFile;
     }
 
+    public static String getFileExtension(String fileName) {
+        int lastIndexOf = fileName.lastIndexOf(".");
+        if (lastIndexOf != -1 && lastIndexOf != 0)
+            return fileName.substring(lastIndexOf + 1);
+        else return "";
+    }
 
 }

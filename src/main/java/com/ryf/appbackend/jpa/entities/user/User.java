@@ -1,6 +1,7 @@
 package com.ryf.appbackend.jpa.entities.user;
 
 
+import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,5 +54,13 @@ public class User {
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private Set<Bookmark> bookmarks;
+
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<SubmittedOpportunityEntity> submittedOpportunities;
+
+    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private Set<OpportunityEntity> approvedOpportunities;
 
 }

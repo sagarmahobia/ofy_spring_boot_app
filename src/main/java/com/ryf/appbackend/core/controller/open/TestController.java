@@ -1,21 +1,6 @@
 package com.ryf.appbackend.core.controller.open;
 
-import com.ryf.appbackend.core.controller.models.Opportunity;
-import com.ryf.appbackend.core.services.OpportunityUtil;
-import com.ryf.appbackend.jpa.dao.BookmarkDao;
-import com.ryf.appbackend.jpa.dao.OpportunityDao;
-import com.ryf.appbackend.jpa.dao.UserDao;
-import com.ryf.appbackend.jpa.entities.user.Bookmark;
-import com.ryf.appbackend.jwtsecurity.model.JwtUser;
-import com.ryf.appbackend.jwtsecurity.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class TestController {

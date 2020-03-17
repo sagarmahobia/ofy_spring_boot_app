@@ -1,4 +1,4 @@
-package com.ryf.appbackend.core.controller.models;
+package com.ryf.appbackend.models.dto;
 
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;

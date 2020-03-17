@@ -1,7 +1,8 @@
-package com.ryf.appbackend.jpa.entities;
+package com.ryf.appbackend.jpa.entities.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
@@ -14,17 +15,17 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity(name = "Opportunities")
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class OpportunityEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+
+@Entity(name = "submitted_opportunity")
+public class SubmittedOpportunityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    private long id;
 
     @Column(name = "title")
     private String title;
@@ -66,24 +67,8 @@ public class OpportunityEntity {
     @Column(name = "apply_url")
     private String applyUrl;
 
-    @Column(name = "featured", columnDefinition = "boolean default false")
-    private Boolean featured;
-
     @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-
-    public Boolean getFeatured() {
-        return featured;
-    }
-
-    public void setFeatured(Boolean featured) {
-
-        if (featured == null) {
-            this.featured = false;
-        } else {
-            this.featured = featured;
-        }
-    }
 }

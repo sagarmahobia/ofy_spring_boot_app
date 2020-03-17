@@ -1,12 +1,8 @@
-server:
-  port: 8888
-
-
-logging:
-  level:
-    org:
-      springframework:
-        web: DEBUG
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
 
 
 spring:
@@ -16,10 +12,10 @@ spring:
     username: ofy
 
 #spring:
-  #  datasource:
-  #    password: ''
-  #    url: jdbc:mysql://localhost:3306/ofy
-  #    username: root
+#  datasource:
+#    password: ''
+#    url: jdbc:mysql://localhost:3306/ofy
+#    username: root
 
   jpa:
     show-sql: true
@@ -43,3 +39,6 @@ amazonProperties:
 
 application:
   s3-endpoint: https://ofy-images:s3.ap-south-1.amazonaws.com
+
+server:
+  port: 8888

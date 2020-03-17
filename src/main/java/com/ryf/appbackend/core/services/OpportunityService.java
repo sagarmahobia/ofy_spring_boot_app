@@ -1,7 +1,7 @@
 package com.ryf.appbackend.core.services;
 
 
-import com.ryf.appbackend.core.controller.models.Opportunities;
+import com.ryf.appbackend.models.dto.Opportunities;
 import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;

@@ -1,8 +1,8 @@
 package com.ryf.appbackend.core.controller.open;
 
-import com.ryf.appbackend.core.controller.models.Category;
-import com.ryf.appbackend.core.controller.models.Opportunities;
-import com.ryf.appbackend.core.controller.models.Opportunity;
+import com.ryf.appbackend.models.dto.Category;
+import com.ryf.appbackend.models.dto.Opportunities;
+import com.ryf.appbackend.models.dto.Opportunity;
 import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.core.services.OpportunityService;
 import com.ryf.appbackend.core.services.OpportunityUtil;
@@ -11,6 +11,7 @@ import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class OpportunityController {
 
     /*
      *
-     * PRIORITIZED (featured & type)
+     * PRIORITIZED (featured, search & type)
      *
      * */
     @RequestMapping(path = "/api/v1/public/opportunities/featured")
@@ -62,6 +63,20 @@ public class OpportunityController {
     ) {
 
         return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getFeaturedOpportunitiesByPageAndSize(page, size));
+    }
+
+    @RequestMapping(path = "/api/v1/public/opportunities/search")
+    @ResponseBody
+    public List<Opportunity> searchByTitlePageAndSize(
+            @RequestParam("query") String query,
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size
+
+    ) {
+        if (query.length() < 4) {
+            return new ArrayList<>();
+        }
+        return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.searchByTitlePageAndSize(query, page, size));
     }
 
     @RequestMapping(path = "/api/v1/public/opportunities/{type}")

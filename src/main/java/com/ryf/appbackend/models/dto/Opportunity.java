@@ -1,4 +1,4 @@
-package com.ryf.appbackend.core.controller.models;
+package com.ryf.appbackend.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

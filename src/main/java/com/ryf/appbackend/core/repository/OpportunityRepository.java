@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -70,9 +70,22 @@ public class OpportunityRepository {
     }
 
 
+    public List<OpportunityEntity> searchByTitlePageAndSize(@NonNull String title, int page, int size) {
+
+
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("title").ascending());
+
+        String replace = title.replace("%", "").replace("_", "");
+
+        String searchString = "%" + replace + "%";
+
+        return opportunityDao.findByTitleLikeIgnoreCase(searchString, pageRequest);
+    }
+
     private Pageable getPageRequestForIdDefending(int page, int size) {
         return PageRequest.of(page, size, Sort.by("id").descending());
     }
+
 
 }
 

@@ -1,6 +1,6 @@
 package com.ryf.appbackend.core.controller.admin;
 
-import com.ryf.appbackend.core.controller.models.Status;
+import com.ryf.appbackend.models.dto.Status;
 import com.ryf.appbackend.core.services.S3AmazonService;
 import com.ryf.appbackend.jpa.dao.ImageDao;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
@@ -63,7 +63,7 @@ public class ProtectedController {
         boolean useNumbers = false;
         String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
 
-        String imageName = generatedString + "." + getFileExtension(image.getOriginalFilename());
+        String imageName = generatedString + "." + S3AmazonService.getFileExtension(image.getOriginalFilename());
 
         s3AmazonService.uploadFile(image, imageName);
 
@@ -156,7 +156,7 @@ public class ProtectedController {
         boolean useNumbers = false;
         String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
 
-        String imageName = generatedString + "." + getFileExtension(newImage.getOriginalFilename());
+        String imageName = generatedString + "." + S3AmazonService.getFileExtension(newImage.getOriginalFilename());
 
         s3AmazonService.uploadFile(newImage, imageName);
 
@@ -211,11 +211,5 @@ public class ProtectedController {
     }
 
 
-    private static String getFileExtension(String fileName) {
-        int lastIndexOf = fileName.lastIndexOf(".");
-        if (lastIndexOf != -1 && lastIndexOf != 0)
-            return fileName.substring(lastIndexOf + 1);
-        else return "";
-    }
 
 }

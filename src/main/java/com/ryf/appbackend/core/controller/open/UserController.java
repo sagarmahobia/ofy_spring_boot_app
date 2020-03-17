@@ -2,8 +2,8 @@ package com.ryf.appbackend.core.controller.open;
 
 
 import com.ryf.appbackend.InvalidInputException;
-import com.ryf.appbackend.core.controller.models.OAuthBody;
-import com.ryf.appbackend.core.controller.models.Token;
+import com.ryf.appbackend.models.dto.OAuthBody;
+import com.ryf.appbackend.models.dto.Token;
 import com.ryf.appbackend.jpa.dao.UserDao;
 import com.ryf.appbackend.jpa.entities.user.User;
 import com.ryf.appbackend.jwtsecurity.model.JwtUser;
