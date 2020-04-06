@@ -36,6 +36,7 @@ public class UserDataController {
 
     @Autowired
     BookmarkDao bookmarkDao;
+
     @Autowired
     UserDao userDao;
 

@@ -82,7 +82,7 @@ public class OpportunityRepository {
         return opportunityDao.findByTitleLikeIgnoreCase(searchString, pageRequest);
     }
 
-    private Pageable getPageRequestForIdDefending(int page, int size) {
+    public Pageable getPageRequestForIdDefending(int page, int size) {
         return PageRequest.of(page, size, Sort.by("id").descending());
     }
 
