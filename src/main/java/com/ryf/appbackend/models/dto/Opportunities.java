@@ -12,9 +12,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
- public class Opportunities {
+public class Opportunities {
 
     private List<Opportunity> featured;
+
+    private List<Opportunity> onlineCourses;
     private List<Opportunity> competitions;
     private List<Opportunity> conferences;
     private List<Opportunity> exchangePrograms;

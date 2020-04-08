@@ -31,6 +31,9 @@ public class OpportunityService {
         List<OpportunityEntity> featured = opportunityRepository.getFeaturedOpportunitiesByPageAndSize(page, size);
         opportunities.setFeatured(opportunityUtil.getOpportunityFromEntityList(featured));
 
+        List<OpportunityEntity> onlineCourses = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.ONLINE_COURSES, page, size);
+        opportunities.setOnlineCourses(opportunityUtil.getOpportunityFromEntityList(onlineCourses));
+
         List<OpportunityEntity> competitions = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.COMPETITIONS, page, size);
         opportunities.setCompetitions(opportunityUtil.getOpportunityFromEntityList(competitions));
 
