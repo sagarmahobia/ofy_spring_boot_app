@@ -1,7 +1,16 @@
 package com.ryf.appbackend.jpa.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
 @Entity(name = "images")
 public class Image {
 
@@ -15,30 +24,6 @@ public class Image {
 
     @Column(name = "file")
     private String file;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getImageName() {
-        return imageName;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
 
 
 }

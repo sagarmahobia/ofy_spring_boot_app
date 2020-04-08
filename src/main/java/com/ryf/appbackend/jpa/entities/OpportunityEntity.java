@@ -1,20 +1,30 @@
 package com.ryf.appbackend.jpa.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
+import com.ryf.appbackend.jpa.entities.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity(name = "Opportunities")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class OpportunityEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "title")
     private String title;
@@ -28,7 +38,7 @@ public class OpportunityEntity {
     @Enumerated(EnumType.STRING)
     private Region region;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "image_id")
     private Image image;
 
@@ -50,112 +60,30 @@ public class OpportunityEntity {
     @Column(name = "other", columnDefinition = "TEXT")
     private String other;
 
-
     @Column(name = "url")
     private String url;
 
-    public Long getId() {
-        return id;
+    @Column(name = "apply_url")
+    private String applyUrl;
+
+    @Column(name = "featured", columnDefinition = "boolean default false")
+    private Boolean featured;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    public Boolean getFeatured() {
+        return featured;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setFeatured(Boolean featured) {
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public OpportunityType getOpportunityType() {
-        return opportunityType;
-    }
-
-    public void setOpportunityType(OpportunityType opportunityType) {
-        this.opportunityType = opportunityType;
-    }
-
-    public FundingType getFundingType() {
-        return fundingType;
-    }
-
-    public void setFundingType(FundingType fundingType) {
-        this.fundingType = fundingType;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getBenefit() {
-        return benefit;
-    }
-
-    public void setBenefit(String benefit) {
-        this.benefit = benefit;
-    }
-
-    public String getEligibility() {
-        return eligibility;
-    }
-
-    public void setEligibility(String eligibility) {
-        this.eligibility = eligibility;
-    }
-
-    public String getApplication_process() {
-        return application_process;
-    }
-
-    public void setApplication_process(String application_process) {
-        this.application_process = application_process;
-    }
-
-    public String getOther() {
-        return other;
-    }
-
-    public void setOther(String other) {
-        this.other = other;
-    }
-
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+        if (featured == null) {
+            this.featured = false;
+        } else {
+            this.featured = featured;
+        }
     }
 }

@@ -15,14 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Collections;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -57,7 +50,9 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/api/v1/protected/**").authenticated()
+                .antMatchers("/api/v1/protected/admin/**").hasAuthority("MODIFY_ADMIN")
+                .antMatchers("/api/v1/protected/moderator/**").hasAuthority("MODIFY_MODERATOR")
+                .antMatchers("/api/v1/protected/user/**").hasAuthority("MODIFY_USER")
                 .antMatchers("/**").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)

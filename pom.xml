@@ -10,12 +10,13 @@
     </parent>
     <groupId>com.ryf</groupId>
     <artifactId>appbackend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.2.11</version><!--TODO CHANGE ON EVERY RELEASE-->
     <name>appbackend</name>
-    <description>RYF Backend project for App</description>
+    <description>OFY Backend project for App</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
         <kotlin.version>1.3.61</kotlin.version>
     </properties>
 
@@ -33,10 +34,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--      <dependency>
-                  <groupId>org.springframework.cloud</groupId>
-                  <artifactId>spring-cloud-starter-aws</artifactId>
-              </dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -69,12 +66,21 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+   <!--     <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -87,6 +93,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+               <!-- <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>
+                        &lt;!&ndash; other annotation processors &ndash;&gt;
+                    </annotationProcessorPaths>
+                </configuration>-->
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -110,8 +126,12 @@
                 <version>0.9.0</version>
 
                 <configuration>
+
+                    <from>
+                        <image>openjdk:8-jre-alpine</image>
+                    </from>
                     <to>
-                        <image>appbackend</image>
+                        <image>appbackend:0.2.11</image>
                     </to>
                 </configuration>
             </plugin>

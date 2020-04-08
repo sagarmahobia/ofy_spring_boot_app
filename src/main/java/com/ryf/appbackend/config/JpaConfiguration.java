@@ -1,15 +1,7 @@
 package com.ryf.appbackend.config;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.sql.DataSource;
-import java.util.Properties;
 
 @Configuration
 //@EnableTransactionManagement
@@ -41,7 +33,7 @@ public class JpaConfiguration {
     private String ENTITYMANAGER_PACKAGES_TO_SCAN;*/
 
    /* @Bean(name="entityManagerFactory")
-    public LocalSessionFactoryBean sessionFactory() {
+    open LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
@@ -53,7 +45,7 @@ public class JpaConfiguration {
         return sessionFactory;
     }
     @Bean
-    public DataSource dataSource() {
+    open DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(DB_DRIVER);
         dataSource.setUrl(DB_URL);
@@ -63,7 +55,7 @@ public class JpaConfiguration {
     }*/
 
 /*    @Bean
-    public HibernateTransactionManager transactionManager() {
+    open HibernateTransactionManager transactionManager() {
         HibernateTransactionManager txManager = new HibernateTransactionManager();
         txManager.setSessionFactory(sessionFactory().getObject());
         return txManager;

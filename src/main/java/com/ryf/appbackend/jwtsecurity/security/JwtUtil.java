@@ -7,6 +7,8 @@ package com.ryf.appbackend.jwtsecurity.security;
 
 import com.ryf.appbackend.jwtsecurity.model.JwtUser;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,9 +27,10 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
 
-            int id = Integer.parseInt((String) body.get("id"));
-//            String role = (String) body.get("role");
-            jwtUser = new JwtUser(id);
+            String id = (String) body.get("id");
+            String role = (String) body.get("role");
+
+            jwtUser = new JwtUser(Long.parseLong(id), role);
         } catch (ExpiredJwtException | MalformedJwtException | SignatureException | UnsupportedJwtException | IllegalArgumentException ignored) {
             //todo handle error.
         }
@@ -42,7 +45,7 @@ public class JwtUtil {
         claims.setIssuer("OFY");
 
         claims.put("id", String.valueOf(jwtUser.getId()));
-//        claims.put("role", jwtUser.getRole());
+        claims.put("role", jwtUser.getRole());
 
         return Jwts.builder()
                 .setClaims(claims)
