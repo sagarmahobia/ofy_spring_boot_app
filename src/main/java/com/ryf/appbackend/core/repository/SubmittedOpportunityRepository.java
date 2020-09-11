@@ -1,7 +1,6 @@
 package com.ryf.appbackend.core.repository;
 
 import com.ryf.appbackend.jpa.dao.SubmittedOpportunityDao;
-import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

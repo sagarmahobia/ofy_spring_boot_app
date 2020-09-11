@@ -16,6 +16,7 @@ import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jpa.entities.user.User;
+import com.ryf.appbackend.models.mappers.EntityToEntityMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -296,33 +297,12 @@ public class ProtectedController {
     @GetMapping(path = "/api/v1/protected/admin/approve")
     @ResponseBody
     public Status approveOpportunity(
-            Authentication authentication,
             @RequestParam("id") long id
     ) {
 
-        JwtUserDetails details = (JwtUserDetails) authentication.getPrincipal();
-
         SubmittedOpportunityEntity submittedOpportunityEntity = submittedOpportunityDao.getOne(id);
 
-        OpportunityEntity opportunityEntity = new OpportunityEntity();
-
-        opportunityEntity.setTitle(submittedOpportunityEntity.getTitle());
-        opportunityEntity.setUser(submittedOpportunityEntity.getUser());
-        opportunityEntity.setDeadline(submittedOpportunityEntity.getDeadline());
-
-        opportunityEntity.setImage(submittedOpportunityEntity.getImage());
-        opportunityEntity.setFundingType(submittedOpportunityEntity.getFundingType());
-
-        opportunityEntity.setRegion(submittedOpportunityEntity.getRegion());
-        opportunityEntity.setUrl(submittedOpportunityEntity.getUrl());
-        opportunityEntity.setApplyUrl(submittedOpportunityEntity.getApplyUrl());
-
-        opportunityEntity.setDescription(submittedOpportunityEntity.getDescription());
-        opportunityEntity.setBenefit(submittedOpportunityEntity.getBenefit());
-        opportunityEntity.setOpportunityType(submittedOpportunityEntity.getOpportunityType());
-        opportunityEntity.setOther(submittedOpportunityEntity.getOther());
-
-        opportunityEntity.setApplication_process(submittedOpportunityEntity.getApplication_process());
+        OpportunityEntity opportunityEntity = EntityToEntityMapper.INSTANCE.getOpportunityEntity(submittedOpportunityEntity);
 
         User user = submittedOpportunityEntity.getUser();
 
