@@ -29,7 +29,7 @@ public class UserController {
         this.userDao = userDao;
     }
 
-    @PostMapping(path = "/api/v1/public/login")
+    @PostMapping(path = "/v1/public/login")
     @ResponseBody
     public Token getUser(@RequestParam("username") String user, @RequestParam("password") String password) {
 
@@ -47,7 +47,7 @@ public class UserController {
 
     /*
      */
-    @PostMapping(path = "/api/v1/public/accept_oauth_token")
+    @PostMapping(path = "/v1/public/accept_oauth_token")
     public Token acceptOAuthToken(@RequestParam("token") String token) {
 
         ResponseEntity<OAuthBody> forEntity = restTemplate.getForEntity(

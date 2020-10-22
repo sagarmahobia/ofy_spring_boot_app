@@ -22,7 +22,7 @@ public class NotificationController {
     @Autowired
     NotificationDao notifications;
 
-    @GetMapping(path = "/api/v1/public/notifications")
+    @GetMapping(path = "/v1/public/notifications")
     @ResponseBody
     public List<NotificationDTO> getAllNotification() {
 

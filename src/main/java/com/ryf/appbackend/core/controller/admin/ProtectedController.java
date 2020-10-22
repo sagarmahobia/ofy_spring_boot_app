@@ -54,7 +54,7 @@ public class ProtectedController {
     }
 
 
-    @PostMapping(path = "/api/v1/protected/admin/add_opportunity")
+    @PostMapping(path = "/v1/protected/admin/add_opportunity")
     @ResponseBody
     public Status addOpportunity(
 
@@ -113,7 +113,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_opportunity")
+    @PostMapping(path = "/v1/protected/admin/edit_opportunity")
     @ResponseBody
     public Status editOpportunity(
             @RequestParam("id") long id,
@@ -153,7 +153,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_submitted_opportunity")
+    @PostMapping(path = "/v1/protected/admin/edit_submitted_opportunity")
     @ResponseBody
     public Status editSubmittedOpportunity(
             @RequestParam("id") long id,
@@ -193,7 +193,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_image")
+    @PostMapping(path = "/v1/protected/admin/edit_image")
     @ResponseBody
     public Status editImage(
             @RequestParam("id") long id,
@@ -231,7 +231,7 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_submitted_image")
+    @PostMapping(path = "/v1/protected/admin/edit_submitted_image")
     @ResponseBody
     public Status editSubmittedImage(
             @RequestParam("id") long id,
@@ -269,7 +269,7 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/delete")
+    @PostMapping(path = "/v1/protected/admin/delete")
     @ResponseBody
     public Status deleteOpportunity(
             @RequestParam("id") long id
@@ -294,7 +294,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @GetMapping(path = "/api/v1/protected/admin/approve")
+    @GetMapping(path = "/v1/protected/admin/approve")
     @ResponseBody
     public Status approveOpportunity(
             @RequestParam("id") long id
@@ -315,7 +315,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/toggle_featured")
+    @PostMapping(path = "/v1/protected/admin/toggle_featured")
     @ResponseBody
     public Status toggleFeatured(
             @RequestParam("id") long id
@@ -328,13 +328,13 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/users")
+    @PostMapping(path = "/v1/protected/admin/users")
     public List<User> getUsers() {
         return userDao.findAll();
     }
 
 
-    @RequestMapping(path = "/api/v1/protected/admin/submitted_opportunity")
+    @RequestMapping(path = "/v1/protected/admin/submitted_opportunity")
     @ResponseBody
     public Opportunity opportunity(@RequestParam("id") Long id) {
         return opportunityUtil.getOpportunityFromSubmittedEntity(submittedOpportunityDao.getOne(id));

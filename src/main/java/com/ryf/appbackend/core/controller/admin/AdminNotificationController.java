@@ -14,7 +14,7 @@ public class AdminNotificationController {
     @Autowired
     NotificationDao notifications;
 
-    @PostMapping(path = "/api/v1/protected/admin/notification/add")
+    @PostMapping(path = "/v1/protected/admin/notification/add")
     @ResponseBody
     public Status addNotification(
             @RequestParam("title") String title,
@@ -33,7 +33,7 @@ public class AdminNotificationController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/notification/delete")
+    @PostMapping(path = "/v1/protected/admin/notification/delete")
     @ResponseBody
     public Status addNotification(
             @RequestParam("id") int id) {
