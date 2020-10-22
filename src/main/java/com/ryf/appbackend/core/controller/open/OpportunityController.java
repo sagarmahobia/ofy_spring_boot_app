@@ -103,7 +103,7 @@ public class OpportunityController {
      * */
 
 
-    @RequestMapping(path = "/v1/public/opportunities/{type}/{region}")
+    @RequestMapping(path = "v1/public/opportunities/{type}/{region}")
     @ResponseBody
     public List<Opportunity> opportunityByTypeAndRegion(
             @PathVariable String region,
