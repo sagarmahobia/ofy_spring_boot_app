@@ -16,6 +16,7 @@ import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jpa.entities.user.User;
+import com.ryf.appbackend.models.mappers.EntityToEntityMapper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -53,7 +54,7 @@ public class ProtectedController {
     }
 
 
-    @PostMapping(path = "/api/v1/protected/admin/add_opportunity")
+    @PostMapping(path = "/v1/protected/admin/add_opportunity")
     @ResponseBody
     public Status addOpportunity(
 
@@ -112,7 +113,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_opportunity")
+    @PostMapping(path = "/v1/protected/admin/edit_opportunity")
     @ResponseBody
     public Status editOpportunity(
             @RequestParam("id") long id,
@@ -152,7 +153,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_submitted_opportunity")
+    @PostMapping(path = "/v1/protected/admin/edit_submitted_opportunity")
     @ResponseBody
     public Status editSubmittedOpportunity(
             @RequestParam("id") long id,
@@ -192,7 +193,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_image")
+    @PostMapping(path = "/v1/protected/admin/edit_image")
     @ResponseBody
     public Status editImage(
             @RequestParam("id") long id,
@@ -230,7 +231,7 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/edit_submitted_image")
+    @PostMapping(path = "/v1/protected/admin/edit_submitted_image")
     @ResponseBody
     public Status editSubmittedImage(
             @RequestParam("id") long id,
@@ -268,7 +269,7 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/delete")
+    @PostMapping(path = "/v1/protected/admin/delete")
     @ResponseBody
     public Status deleteOpportunity(
             @RequestParam("id") long id
@@ -293,36 +294,15 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @GetMapping(path = "/api/v1/protected/admin/approve")
+    @GetMapping(path = "/v1/protected/admin/approve")
     @ResponseBody
     public Status approveOpportunity(
-            Authentication authentication,
             @RequestParam("id") long id
     ) {
 
-        JwtUserDetails details = (JwtUserDetails) authentication.getPrincipal();
-
         SubmittedOpportunityEntity submittedOpportunityEntity = submittedOpportunityDao.getOne(id);
 
-        OpportunityEntity opportunityEntity = new OpportunityEntity();
-
-        opportunityEntity.setTitle(submittedOpportunityEntity.getTitle());
-        opportunityEntity.setUser(submittedOpportunityEntity.getUser());
-        opportunityEntity.setDeadline(submittedOpportunityEntity.getDeadline());
-
-        opportunityEntity.setImage(submittedOpportunityEntity.getImage());
-        opportunityEntity.setFundingType(submittedOpportunityEntity.getFundingType());
-
-        opportunityEntity.setRegion(submittedOpportunityEntity.getRegion());
-        opportunityEntity.setUrl(submittedOpportunityEntity.getUrl());
-        opportunityEntity.setApplyUrl(submittedOpportunityEntity.getApplyUrl());
-
-        opportunityEntity.setDescription(submittedOpportunityEntity.getDescription());
-        opportunityEntity.setBenefit(submittedOpportunityEntity.getBenefit());
-        opportunityEntity.setOpportunityType(submittedOpportunityEntity.getOpportunityType());
-        opportunityEntity.setOther(submittedOpportunityEntity.getOther());
-
-        opportunityEntity.setApplication_process(submittedOpportunityEntity.getApplication_process());
+        OpportunityEntity opportunityEntity = EntityToEntityMapper.INSTANCE.getOpportunityEntity(submittedOpportunityEntity);
 
         User user = submittedOpportunityEntity.getUser();
 
@@ -335,7 +315,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/toggle_featured")
+    @PostMapping(path = "/v1/protected/admin/toggle_featured")
     @ResponseBody
     public Status toggleFeatured(
             @RequestParam("id") long id
@@ -348,13 +328,13 @@ public class ProtectedController {
 
     }
 
-    @PostMapping(path = "/api/v1/protected/admin/users")
+    @PostMapping(path = "/v1/protected/admin/users")
     public List<User> getUsers() {
         return userDao.findAll();
     }
 
 
-    @RequestMapping(path = "/api/v1/protected/admin/submitted_opportunity")
+    @RequestMapping(path = "/v1/protected/admin/submitted_opportunity")
     @ResponseBody
     public Opportunity opportunity(@RequestParam("id") Long id) {
         return opportunityUtil.getOpportunityFromSubmittedEntity(submittedOpportunityDao.getOne(id));

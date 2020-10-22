@@ -3,7 +3,7 @@ package com.ryf.appbackend.jpa.entities.enums;
 
 public enum OpportunityType {
 
-    ONLINE_COURSES("Online Courses"),
+    ONLINE_COURSES("Online Course"),
     COMPETITIONS("Competition"),
     CONFERENCES("Conference"),
     //    EXCHANGE_PROGRAMS("Exchange Program"),

@@ -23,8 +23,8 @@ public class OpportunityUtil {
 
         Opportunity opportunity = new Opportunity();
 
-        opportunity.setId(one.getId());
-        opportunity.setTitle(one.getTitle());
+        String timeLeft;
+        String deadLine;
 
         if (one.getDeadline() != null) {
 
@@ -35,36 +35,38 @@ public class OpportunityUtil {
 
 
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-            String dateString = format.format(one.getDeadline());
-            opportunity.setDeadline(dateString);
-
+            deadLine = format.format(one.getDeadline());
 
             //calculate difference
             long diffInMillies = one.getDeadline().getTime() - (new Date().getTime());
             if (diffInMillies > 0) {
                 long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
                 //format date
-                opportunity.setTimeLeft(String.format("%d Days Left", diff));
+                timeLeft = String.format("%d Days Left", diff);
             } else {
-                opportunity.setTimeLeft("Ended");
+                timeLeft = "Ended";
             }
         } else {
-            opportunity.setTimeLeft("Open");
-            opportunity.setDeadline("Always Open");
+            timeLeft = "Open";
+            deadLine = "Always Open";
+
 
         }
 
-
+        opportunity.setTimeLeft(timeLeft);
+        opportunity.setDeadline(deadLine);
         opportunity.setRegion(one.getRegion().getName());
         opportunity.setFundingType(one.getFundingType().getName());
         opportunity.setOpportunityType(one.getOpportunityType().getName());
-
         opportunity.setRegionEnum(one.getRegion().toString());
         opportunity.setFundingTypeEnum(one.getFundingType().toString());
         opportunity.setOpportunityTypeEnum(one.getOpportunityType().toString());
-
-
         opportunity.setImage(ResourceUtil.imageEndpoint + "/" + one.getImage().getFile());
+
+        opportunity.setId(one.getId());
+        opportunity.setTitle(one.getTitle());
+
+
         opportunity.setDescription(one.getDescription());
         opportunity.setBenefit(one.getBenefit());
         opportunity.setEligibility(one.getEligibility());

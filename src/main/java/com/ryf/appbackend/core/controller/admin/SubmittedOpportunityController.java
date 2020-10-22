@@ -23,7 +23,7 @@ public class SubmittedOpportunityController {
         this.opportunityUtil = opportunityUtil;
     }
 
-    @GetMapping(path = "/api/v1/protected/admin/submitted_opportunities")
+    @GetMapping(path = "/v1/protected/admin/submitted_opportunities")
     @ResponseBody
     public List<Opportunity> getSubmittedOpportunities(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
                                                        @RequestParam(value = "size", defaultValue = "10", required = false) int size) {

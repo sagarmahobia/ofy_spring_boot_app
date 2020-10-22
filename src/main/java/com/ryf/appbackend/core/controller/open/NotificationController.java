@@ -3,6 +3,7 @@ package com.ryf.appbackend.core.controller.open;
 
 import com.ryf.appbackend.jpa.dao.NotificationDao;
 import com.ryf.appbackend.models.dto.NotificationDTO;
+import com.ryf.appbackend.models.mappers.EntityToDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,17 +22,12 @@ public class NotificationController {
     @Autowired
     NotificationDao notifications;
 
-    @GetMapping(path = "/api/v1/public/notifications")
+    @GetMapping(path = "/v1/public/notifications")
     @ResponseBody
     public List<NotificationDTO> getAllNotification() {
 
         return notifications.findAll().stream().map(
-                notificationEntity -> NotificationDTO.builder()
-                        .id(notificationEntity.getId())
-                        .url(notificationEntity.getUrl())
-                        .title(notificationEntity.getTitle())
-                        .body(notificationEntity.getBody())
-                        .build()
+                EntityToDtoMapper.INSTANCE::getNotificationDto
         )
                 .collect(Collectors.toList());
     }

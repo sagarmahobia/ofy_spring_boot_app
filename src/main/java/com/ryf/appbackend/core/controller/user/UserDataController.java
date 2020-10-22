@@ -55,7 +55,7 @@ public class UserDataController {
     @Autowired
     OpportunityUtil opportunityUtil;
 
-    @GetMapping(path = "/api/v1/protected/user/bookmarks")
+    @GetMapping(path = "/v1/protected/user/bookmarks")
     public List<Opportunity> getAllBookMarks(Authentication authentication,
                                              @RequestParam(value = "page", required = false, defaultValue = "0") int page,
                                              @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
@@ -73,7 +73,7 @@ public class UserDataController {
     }
 
 
-    @GetMapping(path = "/api/v1/protected/user/is_bookmarked")
+    @GetMapping(path = "/v1/protected/user/is_bookmarked")
     public Status isBookmarked(Authentication authentication,
                                @RequestParam("opportunity_id") long id) {
 
@@ -85,7 +85,7 @@ public class UserDataController {
     }
 
 
-    @GetMapping(path = "/api/v1/protected/user/toggle_bookmarked")
+    @GetMapping(path = "/v1/protected/user/toggle_bookmarked")
     public Status toggleBookMark(Authentication authentication,
                                  @RequestParam("opportunity_id") long opportunityId) {
 
@@ -115,7 +115,7 @@ public class UserDataController {
         return Status.builder().newState(!aBoolean).build();
     }
 
-    @PostMapping(path = "/api/v1/protected/user/submit_opportunity")
+    @PostMapping(path = "/v1/protected/user/submit_opportunity")
     public Status getAllBookMarks(Authentication authentication,
                                   @RequestParam(value = "title", required = false) String title,
                                   @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
@@ -177,7 +177,7 @@ public class UserDataController {
         return Status.builder().status("Success").build();
     }
 
-    @GetMapping("/api/v1/protected/user/submitted_opportunities")
+    @GetMapping("/v1/protected/user/submitted_opportunities")
     public List<Opportunity> getSubmittedOpportunities(Authentication authentication,
                                                        @RequestParam(value = "page", required = false, defaultValue = "0") int page,
                                                        @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
@@ -190,7 +190,7 @@ public class UserDataController {
 
     }
 
-    @GetMapping("/api/v1/protected/user/approved_opportunities")
+    @GetMapping("/v1/protected/user/approved_opportunities")
     public List<Opportunity> getApprovedOpportunities(Authentication authentication,
                                                       @RequestParam(value = "page", required = false, defaultValue = "0") int page,
                                                       @RequestParam(value = "size", required = false, defaultValue = "10") int size) {

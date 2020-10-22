@@ -37,13 +37,13 @@ public class OpportunityController {
     }
 
 
-    @RequestMapping(path = "/api/v1/public/opportunity")
+    @RequestMapping(path = "/v1/public/opportunity")
     @ResponseBody
     public Opportunity opportunity(@RequestParam("id") Long id) {
         return opportunityUtil.getOpportunityFromEntity(opportunityDao.getOne(id));
     }
 
-    @RequestMapping(path = "/api/v1/public/opportunities")
+    @RequestMapping(path = "/v1/public/opportunities")
     @ResponseBody
     public Opportunities opportunityList() {
         return opportunityService.getOpportunitiesForHome();
@@ -54,7 +54,7 @@ public class OpportunityController {
      * PRIORITIZED (featured, search & type)
      *
      * */
-    @RequestMapping(path = "/api/v1/public/opportunities/featured")
+    @RequestMapping(path = "/v1/public/opportunities/featured")
     @ResponseBody
     public List<Opportunity> featuredOpportunityList(
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
@@ -65,7 +65,7 @@ public class OpportunityController {
         return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getFeaturedOpportunitiesByPageAndSize(page, size));
     }
 
-    @RequestMapping(path = "/api/v1/public/opportunities/search")
+    @RequestMapping(path = "/v1/public/opportunities/search")
     @ResponseBody
     public List<Opportunity> searchByTitlePageAndSize(
             @RequestParam("query") String query,
@@ -79,7 +79,7 @@ public class OpportunityController {
         return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.searchByTitlePageAndSize(query, page, size));
     }
 
-    @RequestMapping(path = "/api/v1/public/opportunities/{type}")
+    @RequestMapping(path = "/v1/public/opportunities/{type}")
     @ResponseBody
     public List<Opportunity> opportunityList(
             @PathVariable OpportunityType type,
@@ -103,7 +103,7 @@ public class OpportunityController {
      * */
 
 
-    @RequestMapping(path = "/api/v1/public/opportunities/{type}/{region}")
+    @RequestMapping(path = "/v1/public/opportunities/{type}/{region}")
     @ResponseBody
     public List<Opportunity> opportunityByTypeAndRegion(
             @PathVariable String region,
@@ -130,7 +130,7 @@ public class OpportunityController {
         }
     }
 
-    @RequestMapping(path = "/api/v1/public/categories")
+    @RequestMapping(path = "/v1/public/categories")
     @ResponseBody
     public List<Category> categories() {
         Category category = new Category(OpportunityType.MISCELLANEOUS, "categoryimages/workshop.png");
