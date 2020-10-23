@@ -69,6 +69,10 @@ public class OpportunityEntity {
     @Column(name = "featured", columnDefinition = "boolean default false")
     private Boolean featured;
 
+
+    @Column(name = "ordering",nullable = false,columnDefinition = "int(11) default 0")
+    private Integer ordering;
+
     @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonIgnore

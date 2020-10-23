@@ -61,7 +61,7 @@ public class UserDataController {
                                              @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
 
         JwtUserDetails details = (JwtUserDetails) authentication.getPrincipal();
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id"));
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
 
         return bookmarkDao
                 .findAllByUserId(details.getId(), pageRequest)
@@ -183,7 +183,7 @@ public class UserDataController {
                                                        @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
 
         JwtUserDetails principal = (JwtUserDetails) authentication.getPrincipal();
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id"));
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
         List<SubmittedOpportunityEntity> all = submittedOpportunityDao.findAllByUser(userDao.getOne(principal.getId()), pageRequest);
 
         return opportunityUtil.getOpportunityFromSubmittedEntityList(all);
@@ -196,7 +196,7 @@ public class UserDataController {
                                                       @RequestParam(value = "size", required = false, defaultValue = "10") int size) {
 
         JwtUserDetails principal = (JwtUserDetails) authentication.getPrincipal();
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id"));
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
         List<OpportunityEntity> all = opportunityDao.findAllByUser(userDao.getOne(principal.getId()), pageRequest);
 
         return opportunityUtil.getOpportunityFromEntityList(all);
