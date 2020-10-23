@@ -73,17 +73,15 @@ public class OpportunityRepository {
     public List<OpportunityEntity> searchByTitlePageAndSize(@NonNull String title, int page, int size) {
 
 
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("title").ascending());
-
         String replace = title.replace("%", "").replace("_", "");
 
         String searchString = "%" + replace + "%";
 
-        return opportunityDao.findByTitleLikeIgnoreCase(searchString, pageRequest);
+        return opportunityDao.findByTitleLikeIgnoreCase(searchString, getPageRequestForIdDefending(page,size));
     }
 
-    public Pageable getPageRequestForIdDefending(int page, int size) {
-        return PageRequest.of(page, size, Sort.by("id").descending());
+    public static Pageable getPageRequestForIdDefending(int page, int size) {
+        return PageRequest.of(page, size, Sort.by("ordering").ascending());
     }
 
 
