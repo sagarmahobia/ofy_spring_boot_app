@@ -21,7 +21,7 @@ public class OrderEveryNightJob {
     @Autowired
     OpportunityDao opportunityDao;
 
-    @Scheduled(cron = "0 30 2 * * *")
+    @Scheduled(cron = "0 45 2 * * *", zone = "IST")
     public void run() {
 
         List<OpportunityEntity> currentOpportunities = new ArrayList<>();
