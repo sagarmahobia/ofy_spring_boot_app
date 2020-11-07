@@ -1,18 +1,17 @@
 package com.ryf.appbackend.core.jobs;
 
 
-import com.ryf.appbackend.jpa.dao.OpportunityDao;
-import com.ryf.appbackend.jpa.entities.OpportunityEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-import sun.util.calendar.BaseCalendar;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import com.ryf.appbackend.jpa.dao.OpportunityDao;
+import com.ryf.appbackend.jpa.entities.OpportunityEntity;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 
 @Component
@@ -66,6 +65,8 @@ public class OrderEveryNightJob {
         }
 
         opportunityDao.saveAll(all);
+
+ 
     }
 
 }

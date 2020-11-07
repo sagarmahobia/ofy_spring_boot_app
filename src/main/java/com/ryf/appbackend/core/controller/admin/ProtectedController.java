@@ -1,31 +1,35 @@
 package com.ryf.appbackend.core.controller.admin;
 
+import java.util.Date;
+import java.util.List;
+
 import com.ryf.appbackend.core.services.OpportunityUtil;
-import com.ryf.appbackend.jpa.dao.SubmittedOpportunityDao;
-import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
-import com.ryf.appbackend.jwtsecurity.model.JwtUserDetails;
-import com.ryf.appbackend.models.dto.Opportunity;
-import com.ryf.appbackend.models.dto.Status;
 import com.ryf.appbackend.core.services.S3AmazonService;
 import com.ryf.appbackend.jpa.dao.ImageDao;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
+import com.ryf.appbackend.jpa.dao.SubmittedOpportunityDao;
 import com.ryf.appbackend.jpa.dao.UserDao;
 import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
+import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
 import com.ryf.appbackend.jpa.entities.user.User;
+import com.ryf.appbackend.models.dto.Opportunity;
+import com.ryf.appbackend.models.dto.Status;
 import com.ryf.appbackend.models.mappers.EntityToEntityMapper;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Date;
-import java.util.List;
-
 
 @SuppressWarnings("Duplicates")
 @CrossOrigin("*")
@@ -39,10 +43,8 @@ public class ProtectedController {
     private UserDao userDao;
     private OpportunityUtil opportunityUtil;
 
-    public ProtectedController(OpportunityDao opportunityDao,
-                               SubmittedOpportunityDao submittedOpportunityDao, ImageDao imageDao,
-                               S3AmazonService s3AmazonService,
-                               UserDao userDao, OpportunityUtil opportunityUtil) {
+    public ProtectedController(OpportunityDao opportunityDao, SubmittedOpportunityDao submittedOpportunityDao,
+            ImageDao imageDao, S3AmazonService s3AmazonService, UserDao userDao, OpportunityUtil opportunityUtil) {
 
         this.opportunityDao = opportunityDao;
         this.submittedOpportunityDao = submittedOpportunityDao;
@@ -52,7 +54,6 @@ public class ProtectedController {
 
         this.opportunityUtil = opportunityUtil;
     }
-
 
     @PostMapping(path = "/v1/protected/admin/add_opportunity")
     @ResponseBody
@@ -70,8 +71,7 @@ public class ProtectedController {
             @RequestParam(value = "other", required = false) String other,
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "url", required = false) String url,
-            @RequestParam(value = "apply_url", required = false) String applyUrl
-    ) {
+            @RequestParam(value = "apply_url", required = false) String applyUrl) {
 
         int length = 32;
         boolean useLetters = true;
@@ -108,6 +108,7 @@ public class ProtectedController {
         opportunityEntity.setDescription(description);
         opportunityEntity.setUrl(url);
         opportunityEntity.setApplyUrl(applyUrl);
+        opportunityEntity.setOrdering(0);
 
         opportunityDao.save(opportunityEntity);
         return Status.builder().status("Success").build();
@@ -115,8 +116,7 @@ public class ProtectedController {
 
     @PostMapping(path = "/v1/protected/admin/edit_opportunity")
     @ResponseBody
-    public Status editOpportunity(
-            @RequestParam("id") long id,
+    public Status editOpportunity(@RequestParam("id") long id,
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
             @RequestParam(value = "funding_type", required = false) FundingType fundingType,
@@ -131,7 +131,6 @@ public class ProtectedController {
             @RequestParam(value = "apply_url", required = false) String applyUrl
 
     ) {
-
 
         OpportunityEntity opportunityEntity = opportunityDao.getOne(id);
 
@@ -155,8 +154,7 @@ public class ProtectedController {
 
     @PostMapping(path = "/v1/protected/admin/edit_submitted_opportunity")
     @ResponseBody
-    public Status editSubmittedOpportunity(
-            @RequestParam("id") long id,
+    public Status editSubmittedOpportunity(@RequestParam("id") long id,
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
             @RequestParam(value = "funding_type", required = false) FundingType fundingType,
@@ -171,7 +169,6 @@ public class ProtectedController {
             @RequestParam(value = "apply_url", required = false) String applyUrl
 
     ) {
-
 
         SubmittedOpportunityEntity opportunityEntity = submittedOpportunityDao.getOne(id);
 
@@ -195,10 +192,7 @@ public class ProtectedController {
 
     @PostMapping(path = "/v1/protected/admin/edit_image")
     @ResponseBody
-    public Status editImage(
-            @RequestParam("id") long id,
-            @RequestParam("image") MultipartFile newImage
-    ) {
+    public Status editImage(@RequestParam("id") long id, @RequestParam("image") MultipartFile newImage) {
 
         OpportunityEntity one = opportunityDao.getOne(id);
 
@@ -221,11 +215,9 @@ public class ProtectedController {
 
         Image savedImage = imageDao.save(imageEntity);
 
-
         one.setImage(savedImage);
 
         opportunityDao.save(one);
-
 
         return Status.builder().status("Success").build();
 
@@ -233,10 +225,7 @@ public class ProtectedController {
 
     @PostMapping(path = "/v1/protected/admin/edit_submitted_image")
     @ResponseBody
-    public Status editSubmittedImage(
-            @RequestParam("id") long id,
-            @RequestParam("image") MultipartFile newImage
-    ) {
+    public Status editSubmittedImage(@RequestParam("id") long id, @RequestParam("image") MultipartFile newImage) {
 
         SubmittedOpportunityEntity one = submittedOpportunityDao.getOne(id);
 
@@ -259,11 +248,9 @@ public class ProtectedController {
 
         Image savedImage = imageDao.save(imageEntity);
 
-
         one.setImage(savedImage);
 
         submittedOpportunityDao.save(one);
-
 
         return Status.builder().status("Success").build();
 
@@ -271,9 +258,7 @@ public class ProtectedController {
 
     @PostMapping(path = "/v1/protected/admin/delete")
     @ResponseBody
-    public Status deleteOpportunity(
-            @RequestParam("id") long id
-    ) {
+    public Status deleteOpportunity(@RequestParam("id") long id) {
 
         OpportunityEntity one = opportunityDao.getOne(id);
 
@@ -287,7 +272,6 @@ public class ProtectedController {
             opportunityDao.delete(one);
         }
 
-
         imageDao.delete(image);
         s3AmazonService.deleteFileFromS3Bucket(image.getFile());
 
@@ -296,13 +280,14 @@ public class ProtectedController {
 
     @GetMapping(path = "/v1/protected/admin/approve")
     @ResponseBody
-    public Status approveOpportunity(
-            @RequestParam("id") long id
-    ) {
+    public Status approveOpportunity(@RequestParam("id") long id) {
 
         SubmittedOpportunityEntity submittedOpportunityEntity = submittedOpportunityDao.getOne(id);
 
-        OpportunityEntity opportunityEntity = EntityToEntityMapper.INSTANCE.getOpportunityEntity(submittedOpportunityEntity);
+        OpportunityEntity opportunityEntity = EntityToEntityMapper.INSTANCE
+                .getOpportunityEntity(submittedOpportunityEntity);
+
+        opportunityEntity.setOrdering(0);
 
         User user = submittedOpportunityEntity.getUser();
 
@@ -317,9 +302,7 @@ public class ProtectedController {
 
     @PostMapping(path = "/v1/protected/admin/toggle_featured")
     @ResponseBody
-    public Status toggleFeatured(
-            @RequestParam("id") long id
-    ) {
+    public Status toggleFeatured(@RequestParam("id") long id) {
 
         OpportunityEntity one = opportunityDao.getOne(id);
         one.setFeatured(!one.getFeatured());
@@ -332,7 +315,6 @@ public class ProtectedController {
     public List<User> getUsers() {
         return userDao.findAll();
     }
-
 
     @RequestMapping(path = "/v1/protected/admin/submitted_opportunity")
     @ResponseBody
