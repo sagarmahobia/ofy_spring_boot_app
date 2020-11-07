@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Component
 public class OpportunityUtil {
 
-
     public List<Opportunity> getOpportunityFromEntityList(List<OpportunityEntity> opportunityEntityEntities) {
         return opportunityEntityEntities.stream().map(this::getOpportunityFromEntity).collect(Collectors.toList());
     }
@@ -33,23 +32,26 @@ public class OpportunityUtil {
 
             opportunity.setDeadlineString(simpleDateFormat.format(one.getDeadline()));
 
-
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             deadLine = format.format(one.getDeadline());
 
-            //calculate difference
-            long diffInMillies = one.getDeadline().getTime() - (new Date().getTime());
+            // calculate difference
+            long diffInMillies = one.getDeadline().getTime() - (new Date().getTime()) + 24 * 60 * 60 * 1000;
             if (diffInMillies > 0) {
                 long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                //format date
-                timeLeft = String.format("%d Days Left", diff);
+                if (diff == 0) {
+                    timeLeft = String.format("Ending Today");
+
+                } else {
+                    timeLeft = String.format("%d Days Left", diff);
+                }
+                // format date
             } else {
                 timeLeft = "Ended";
             }
         } else {
             timeLeft = "Open";
             deadLine = "Always Open";
-
 
         }
 
@@ -66,7 +68,6 @@ public class OpportunityUtil {
         opportunity.setId(one.getId());
         opportunity.setTitle(one.getTitle());
 
-
         opportunity.setDescription(one.getDescription());
         opportunity.setBenefit(one.getBenefit());
         opportunity.setEligibility(one.getEligibility());
@@ -82,8 +83,10 @@ public class OpportunityUtil {
         return opportunity;
     }
 
-    public List<Opportunity> getOpportunityFromSubmittedEntityList(List<SubmittedOpportunityEntity> opportunityEntityEntities) {
-        return opportunityEntityEntities.stream().map(this::getOpportunityFromSubmittedEntity).collect(Collectors.toList());
+    public List<Opportunity> getOpportunityFromSubmittedEntityList(
+            List<SubmittedOpportunityEntity> opportunityEntityEntities) {
+        return opportunityEntityEntities.stream().map(this::getOpportunityFromSubmittedEntity)
+                .collect(Collectors.toList());
     }
 
     public Opportunity getOpportunityFromSubmittedEntity(SubmittedOpportunityEntity one) {
@@ -100,17 +103,15 @@ public class OpportunityUtil {
 
             opportunity.setDeadlineString(simpleDateFormat.format(one.getDeadline()));
 
-
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             String dateString = format.format(one.getDeadline());
             opportunity.setDeadline(dateString);
 
-
-            //calculate difference
+            // calculate difference
             long diffInMillies = one.getDeadline().getTime() - (new Date().getTime());
             if (diffInMillies > 0) {
                 long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-                //format date
+                // format date
                 opportunity.setTimeLeft(String.format("%d Days Left", diff));
             } else {
                 opportunity.setTimeLeft("Ended");
@@ -121,7 +122,6 @@ public class OpportunityUtil {
 
         }
 
-
         opportunity.setRegion(one.getRegion().getName());
         opportunity.setFundingType(one.getFundingType().getName());
         opportunity.setOpportunityType(one.getOpportunityType().getName());
@@ -129,7 +129,6 @@ public class OpportunityUtil {
         opportunity.setRegionEnum(one.getRegion().toString());
         opportunity.setFundingTypeEnum(one.getFundingType().toString());
         opportunity.setOpportunityTypeEnum(one.getOpportunityType().toString());
-
 
         opportunity.setImage(ResourceUtil.imageEndpoint + "/" + one.getImage().getFile());
         opportunity.setDescription(one.getDescription());
@@ -144,6 +143,5 @@ public class OpportunityUtil {
 
         return opportunity;
     }
-
 
 }
