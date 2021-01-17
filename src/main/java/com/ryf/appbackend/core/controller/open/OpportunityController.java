@@ -1,6 +1,5 @@
 package com.ryf.appbackend.core.controller.open;
 
-import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.models.dto.Category;
 import com.ryf.appbackend.models.dto.Opportunities;
 import com.ryf.appbackend.models.dto.Opportunity;
@@ -134,7 +133,6 @@ public class OpportunityController {
     @RequestMapping(path = "/v1/public/categories")
     @ResponseBody
     public List<Category> categories() {
-
         Category category = new Category(OpportunityType.MISCELLANEOUS, "categoryimages/workshop.png");
         category.setTitle("Workshop");
         return Arrays.asList(
@@ -150,14 +148,6 @@ public class OpportunityController {
                 new Category(OpportunityType.MISCELLANEOUS, "categoryimages/miscellaneous.png")
 
         );
-    }
-
-    @PostMapping(path="/v1/public/recentPosts")
-    public List<Opportunity> recentOpportunitybyDate(@RequestParam(value = "page",required = false,defaultValue = "0") int page,
-                                                           @RequestParam(value = "size",required = false,defaultValue = "8") int size
-    ){
-
-        return opportunityService.recentPostsByDate(page, size);
     }
 
 }

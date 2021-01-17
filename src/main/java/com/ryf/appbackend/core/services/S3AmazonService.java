@@ -39,15 +39,15 @@ public class S3AmazonService {
 
     private Logger logger = LoggerFactory.getLogger(S3AmazonService.class);
 
-   @PostConstruct
-   private void initializeAmazon() {
-       AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
-       this.s3client = new AmazonS3Client(credentials);
+    @PostConstruct
+    private void initializeAmazon() {
+        AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
+        this.s3client = new AmazonS3Client(credentials);
     }
 
     public String uploadFile(MultipartFile multipartFile, String fileName) {
 
-        String fileUrl = endpointUrl + "/" +" bucketName" + "/" + "fileName";
+        String fileUrl = endpointUrl + "/" + bucketName + "/" + fileName;
 
         try {
             File file = convertMultiPartToFile(multipartFile);
@@ -71,11 +71,9 @@ public class S3AmazonService {
             logger.info("IOE Error Message: " + ioe.getMessage());
 
         }
-       return fileUrl;
+        return fileUrl;
 
     }
-
-
 
     public String deleteFileFromS3Bucket(String fileName) {
         s3client.deleteObject(new DeleteObjectRequest(bucketName, fileName));
@@ -87,8 +85,6 @@ public class S3AmazonService {
         PutObjectResult putObjectResult = s3client.putObject(
                 new PutObjectRequest(bucketName, fileName, file));
         //.withCannedAcl(CannedAccessControlList.PublicRead));
-
-
     }
 
 

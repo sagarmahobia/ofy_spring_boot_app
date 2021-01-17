@@ -1,6 +1,5 @@
 package com.ryf.appbackend.core.services;
 
-import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
 import com.ryf.appbackend.models.dto.Opportunity;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
@@ -16,9 +15,7 @@ import java.util.stream.Collectors;
 public class OpportunityUtil {
 
     public List<Opportunity> getOpportunityFromEntityList(List<OpportunityEntity> opportunityEntityEntities) {
-
-        return opportunityEntityEntities.parallelStream().map(this::getOpportunityFromEntity).collect(Collectors.toList());
-
+        return opportunityEntityEntities.stream().map(this::getOpportunityFromEntity).collect(Collectors.toList());
     }
 
     public Opportunity getOpportunityFromEntity(OpportunityEntity one) {
@@ -146,6 +143,5 @@ public class OpportunityUtil {
 
         return opportunity;
     }
-
 
 }

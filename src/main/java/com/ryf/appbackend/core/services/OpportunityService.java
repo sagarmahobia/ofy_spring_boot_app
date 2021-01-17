@@ -1,18 +1,15 @@
 package com.ryf.appbackend.core.services;
 
 
-import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.models.dto.Opportunities;
 import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
-import com.ryf.appbackend.models.dto.Opportunity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OpportunityService {
@@ -23,7 +20,6 @@ public class OpportunityService {
 
     @Autowired
     OpportunityRepository opportunityRepository;
-
 
     public Opportunities getOpportunitiesForHome() {
 
@@ -70,12 +66,6 @@ public class OpportunityService {
         opportunities.setMiscellaneous(opportunityUtil.getOpportunityFromEntityList(miscellaneous));
 
         return opportunities;
-
-    }
-
-    public List<Opportunity> recentPostsByDate(int page, int size){
-
-        return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getlatestPost(page, size).toList());
 
     }
 
