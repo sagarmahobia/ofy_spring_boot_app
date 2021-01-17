@@ -4,8 +4,10 @@ import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jpa.entities.user.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +28,7 @@ public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
     List<OpportunityEntity> findByTitleLikeIgnoreCase(String title, Pageable pageable);
 
     List<OpportunityEntity> findAllByUser(User user, Pageable pageable);
+
+
+
 }

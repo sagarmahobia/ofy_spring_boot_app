@@ -29,9 +29,9 @@ public class UserController {
         this.userDao = userDao;
     }
 
-    @PostMapping(path = "/v1/public/login")
+    @PostMapping(path = "/v1/public/login/{username}/{password}")
     @ResponseBody
-    public Token getUser(@RequestParam("username") String user, @RequestParam("password") String password) {
+    public Token getUser(@PathVariable("username") String user, @PathVariable("password") String password) {
 
 
         if (user.equals("sagar@ofy.com") && password.equals("Password")) {

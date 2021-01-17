@@ -7,7 +7,9 @@ import com.ryf.appbackend.jpa.dao.OpportunityDao;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
+import com.ryf.appbackend.models.dto.Opportunity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -80,9 +82,22 @@ public class OpportunityRepository {
         return opportunityDao.findByTitleLikeIgnoreCase(searchString, getPageRequestForIdDefending(page,size));
     }
 
-    public static Pageable getPageRequestForIdDefending(int page, int size) {
-        return PageRequest.of(page, size, Sort.by("ordering").ascending());
+
+    public Page<OpportunityEntity> getlatestPost(int page, int size){
+        return  opportunityDao.findAll(getPageRequestforRecentPost(page, size));
     }
+
+
+
+    public static Pageable getPageRequestforRecentPost(int page,int size){
+        return PageRequest.of(page,size,Sort.by("deadline").descending());
+    }
+
+    public static Pageable getPageRequestForIdDefending(int page, int size) {
+        return PageRequest.of(page, size, Sort.by("ordering").descending());
+    }
+
+
 
 
 }

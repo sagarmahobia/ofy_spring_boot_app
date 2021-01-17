@@ -50,7 +50,7 @@ public class ProtectedController {
         this.submittedOpportunityDao = submittedOpportunityDao;
         this.imageDao = imageDao;
         this.userDao = userDao;
-        this.s3AmazonService = s3AmazonService;
+       this.s3AmazonService = s3AmazonService;
 
         this.opportunityUtil = opportunityUtil;
     }
@@ -208,7 +208,7 @@ public class ProtectedController {
 
         String imageName = generatedString + "." + S3AmazonService.getFileExtension(newImage.getOriginalFilename());
 
-        s3AmazonService.uploadFile(newImage, imageName);
+       s3AmazonService.uploadFile(newImage, imageName);
 
         imageEntity.setImageName(newImage.getOriginalFilename());
         imageEntity.setFile(imageName);
@@ -241,7 +241,7 @@ public class ProtectedController {
 
         String imageName = generatedString + "." + S3AmazonService.getFileExtension(newImage.getOriginalFilename());
 
-        s3AmazonService.uploadFile(newImage, imageName);
+       s3AmazonService.uploadFile(newImage, imageName);
 
         imageEntity.setImageName(newImage.getOriginalFilename());
         imageEntity.setFile(imageName);
@@ -273,7 +273,7 @@ public class ProtectedController {
         }
 
         imageDao.delete(image);
-        s3AmazonService.deleteFileFromS3Bucket(image.getFile());
+       s3AmazonService.deleteFileFromS3Bucket(image.getFile());
 
         return Status.builder().status("Success").build();
     }
