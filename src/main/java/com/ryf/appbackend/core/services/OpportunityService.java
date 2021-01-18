@@ -5,6 +5,7 @@ import com.ryf.appbackend.models.dto.Opportunities;
 import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import com.ryf.appbackend.models.dto.Opportunity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +69,12 @@ public class OpportunityService {
         return opportunities;
 
     }
+
+    public List<Opportunity> recentPostsByDate(int page, int size){
+
+        return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getlatestPost(page, size).toList());
+
+    }
+
 
 }
