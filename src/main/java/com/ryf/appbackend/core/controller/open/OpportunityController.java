@@ -7,7 +7,7 @@ import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.core.services.OpportunityService;
 import com.ryf.appbackend.core.services.OpportunityUtil;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
-import com.ryf.appbackend.jpa.entities.enums.FundinType;
+import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,14 +82,14 @@ public class OpportunityController {
     @RequestMapping(path = "/v1/public/opportunities/{type}")
     @ResponseBody
     public List<Opportunity> opportunityList(
-            @PathVariable FundinType type,
+            @PathVariable OpportunityType type,
             @RequestParam(value = "page", required = false, defaultValue = "0") int page,
             @RequestParam(value = "size", required = false, defaultValue = "10") int size
 
     ) {
 
-        if (type == FundinType.WORKSHOPS || type == FundinType.MISCELLANEOUS) {
-            return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getOpportunitiesByPageAndSize(FundinType.WORKSHOPS, FundinType.MISCELLANEOUS, page, size));
+        if (type == OpportunityType.WORKSHOPS || type == OpportunityType.MISCELLANEOUS) {
+            return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, OpportunityType.MISCELLANEOUS, page, size));
 
         }
 
@@ -121,31 +121,31 @@ public class OpportunityController {
             } else if (type.equalsIgnoreCase("any")) {
                 return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.findAllByRegion(Region.valueOf(region), page, size));
             } else {
-                return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.findAllByFundingType(FundinType.valueOf(type), page, size));
+                return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.findAllByOpportunityType(OpportunityType.valueOf(type), page, size));
 
             }
 
         } else {
-            return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.findAllByFundingTypeAndRegion(FundinType.valueOf(type), Region.valueOf(region), page, size));
+            return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.findAllByOpportunityTypeAndRegion(OpportunityType.valueOf(type), Region.valueOf(region), page, size));
         }
     }
 
     @RequestMapping(path = "/v1/public/categories")
     @ResponseBody
     public List<Category> categories() {
-        Category category = new Category(FundinType.MISCELLANEOUS, "categoryimages/workshop.png");
+        Category category = new Category(OpportunityType.MISCELLANEOUS, "categoryimages/workshop.png");
         category.setTitle("Workshop");
         return Arrays.asList(
 
-                new Category(FundinType.COMPETITIONS, "categoryimages/competitions.png"),
-                new Category(FundinType.CONFERENCES, "categoryimages/conference.png"),
+                new Category(OpportunityType.COMPETITIONS, "categoryimages/competitions.png"),
+                new Category(OpportunityType.CONFERENCES, "categoryimages/conference.png"),
 //                new Category(OpportunityType.EXCHANGE_PROGRAMS, "categoryimages/exchange-program.png"),
-                new Category(FundinType.INTERNSHIP, "categoryimages/internship.png"),
-                new Category(FundinType.FELLOWSHIPS, "categoryimages/fellowship.png"),
-                new Category(FundinType.GRANTS, "categoryimages/grant.png"),
-                new Category(FundinType.SCHOLARSHIPS, "categoryimages/scholarship.png"),
+                new Category(OpportunityType.INTERNSHIP, "categoryimages/internship.png"),
+                new Category(OpportunityType.FELLOWSHIPS, "categoryimages/fellowship.png"),
+                new Category(OpportunityType.GRANTS, "categoryimages/grant.png"),
+                new Category(OpportunityType.SCHOLARSHIPS, "categoryimages/scholarship.png"),
                 category,
-                new Category(FundinType.MISCELLANEOUS, "categoryimages/miscellaneous.png")
+                new Category(OpportunityType.MISCELLANEOUS, "categoryimages/miscellaneous.png")
 
         );
     }

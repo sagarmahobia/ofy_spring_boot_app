@@ -12,7 +12,7 @@ import com.ryf.appbackend.jpa.dao.UserDao;
 import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
-import com.ryf.appbackend.jpa.entities.enums.FundinType;
+import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
 import com.ryf.appbackend.jpa.entities.user.User;
@@ -60,7 +60,7 @@ public class ProtectedController {
     public Status addOpportunity(
 
             @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "opportunity_type", required = false) FundinType opportunityType,
+            @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
             @RequestParam(value = "funding_type", required = false) FundingType fundingType,
             @RequestParam(value = "region", required = false) Region region,
             @RequestParam(value = "deadline", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
@@ -118,7 +118,7 @@ public class ProtectedController {
     @ResponseBody
     public Status editOpportunity(@RequestParam("id") long id,
             @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "opportunity_type", required = false) FundinType opportunityType,
+            @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
             @RequestParam(value = "funding_type", required = false) FundingType fundingType,
             @RequestParam(value = "region", required = false) Region region,
             @RequestParam(value = "deadline", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
@@ -156,7 +156,7 @@ public class ProtectedController {
     @ResponseBody
     public Status editSubmittedOpportunity(@RequestParam("id") long id,
             @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "opportunity_type", required = false) FundinType opportunityType,
+            @RequestParam(value = "opportunity_type", required = false) OpportunityType opportunityType,
             @RequestParam(value = "funding_type", required = false) FundingType fundingType,
             @RequestParam(value = "region", required = false) Region region,
             @RequestParam(value = "deadline", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date deadline,
