@@ -1,7 +1,7 @@
 package com.ryf.appbackend.models.dto;
 
 
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import com.ryf.appbackend.jpa.entities.enums.FundinType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +19,9 @@ public class Category {
 
     private String image;
 
-    private OpportunityType opportunityType;
+    private FundinType opportunityType;
 
-    public Category(OpportunityType type, String image) {
+    public Category(FundinType type, String image) {
         this.opportunityType = type;
         this.id = type.toString();
         this.title = type.getName();

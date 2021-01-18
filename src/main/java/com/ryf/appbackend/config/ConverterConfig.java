@@ -2,7 +2,7 @@ package com.ryf.appbackend.config;
 
 
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import com.ryf.appbackend.jpa.entities.enums.FundinType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -22,10 +22,10 @@ public class ConverterConfig implements WebMvcConfigurer {
                 return Region.valueOf(name);
             }
         });
-        registry.addConverter(new Converter<String, OpportunityType>() {
+        registry.addConverter(new Converter<String, FundinType>() {
             @Override
-            public OpportunityType convert(String name) {
-                return OpportunityType.valueOf(name);
+            public FundinType convert(String name) {
+                return FundinType.valueOf(name);
             }
         });
         registry.addConverter(new Converter<String, FundingType>() {

@@ -3,7 +3,7 @@ package com.ryf.appbackend.jpa.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import com.ryf.appbackend.jpa.entities.enums.FundinType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jpa.entities.user.User;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ public class OpportunityEntity {
     private String title;
 
     @Enumerated(EnumType.STRING)
-    private OpportunityType opportunityType;
+    private FundinType opportunityType;
 
     @Enumerated(EnumType.STRING)
     private FundingType fundingType;

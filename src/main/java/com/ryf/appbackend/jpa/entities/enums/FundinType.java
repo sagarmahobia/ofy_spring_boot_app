@@ -1,7 +1,7 @@
 package com.ryf.appbackend.jpa.entities.enums;
 
 
-public enum OpportunityType {
+public enum FundinType {
 
     ONLINE_COURSES("Online Course"),
     COMPETITIONS("Competition"),
@@ -16,7 +16,7 @@ public enum OpportunityType {
 
     private String name;
 
-    OpportunityType(String name) {
+    FundinType(String name) {
         this.name = name;
     }
 

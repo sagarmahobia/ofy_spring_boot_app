@@ -4,9 +4,8 @@ package com.ryf.appbackend.jpa.entities.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ryf.appbackend.jpa.entities.Image;
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import com.ryf.appbackend.jpa.entities.enums.FundinType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
-import com.ryf.appbackend.jpa.entities.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ public class SubmittedOpportunityEntity {
     private String title;
 
     @Enumerated(EnumType.STRING)
-    private OpportunityType opportunityType;
+    private FundinType opportunityType;
 
     @Enumerated(EnumType.STRING)
     private FundingType fundingType;

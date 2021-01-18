@@ -1,7 +1,7 @@
 package com.ryf.appbackend.models.dto;
 
 import com.ryf.appbackend.jpa.entities.enums.FundingType;
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
+import com.ryf.appbackend.jpa.entities.enums.FundinType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.sql.Date;
 public class OpportunityInput {
 
     private String title;
-    private OpportunityType opportunityType;
+    private FundinType opportunityType;
     private FundingType fundingType;
     private Region region;
     private Date deadline;
