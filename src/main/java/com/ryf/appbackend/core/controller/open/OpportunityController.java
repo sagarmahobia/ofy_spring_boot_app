@@ -150,12 +150,19 @@ public class OpportunityController {
         );
     }
 
-    @PostMapping(path="/v1/public/recentPosts")
+    @GetMapping(path="/v1/public/recentPosts")
     public List<Opportunity> recentOpportunitybyDate(@RequestParam(value = "page",required = false,defaultValue = "0") int page,
                                                      @RequestParam(value = "size",required = false,defaultValue = "8") int size
     ){
 
         return opportunityService.recentPostsByDate(page, size);
+    }
+
+    @GetMapping("/v1/public/filter/deadlines")
+    public List<Opportunity> getoppotunitybyDeadline(@RequestParam(value = "maxday",required = true) int maxday,
+                                                     @RequestParam(value = "minday",required = true) int minday){
+
+            return opportunityService.getoppotunitybyDeadline(maxday,minday);
     }
 
 }

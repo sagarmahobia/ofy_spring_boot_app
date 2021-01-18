@@ -26,4 +26,5 @@ public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
     List<OpportunityEntity> findByTitleLikeIgnoreCase(String title, Pageable pageable);
 
     List<OpportunityEntity> findAllByUser(User user, Pageable pageable);
+
 }

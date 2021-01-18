@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OpportunityService {
@@ -77,4 +78,10 @@ public class OpportunityService {
     }
 
 
-}
+    public List<Opportunity> getoppotunitybyDeadline(int maxday, int minday) {
+
+
+        return opportunityUtil.getoppotunitybyDeadline(opportunityRepository.getOpportunitybyDeadline(),maxday,minday);
+       }
+    }
+

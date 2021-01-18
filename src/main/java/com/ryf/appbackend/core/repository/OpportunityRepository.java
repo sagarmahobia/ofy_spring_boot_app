@@ -95,7 +95,9 @@ public class OpportunityRepository {
     }
 
 
+    public List<OpportunityEntity> getOpportunitybyDeadline() {
 
-
+        return opportunityDao.findAll();
+    }
 }
 
