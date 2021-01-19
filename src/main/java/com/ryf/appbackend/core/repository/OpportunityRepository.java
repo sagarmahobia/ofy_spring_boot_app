@@ -5,6 +5,7 @@ import com.ryf.appbackend.core.services.OpportunityUtil;
 import com.ryf.appbackend.jpa.dao.ImageDao;
 import com.ryf.appbackend.jpa.dao.OpportunityDao;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
+import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Repository
@@ -30,6 +33,10 @@ public class OpportunityRepository {
     @Autowired
     OpportunityUtil opportunityUtil;
 
+
+    public OpportunityEntity getOneOpportunity(long id){
+        return opportunityDao.getOne(id);
+    }
 
     public List<OpportunityEntity> getFeaturedOpportunitiesByPageAndSize(int page, int size) {
         List<OpportunityEntity> allByFeatured = opportunityDao.findAllByFeatured(true, getPageRequestForIdDefending(page, size));
@@ -82,20 +89,21 @@ public class OpportunityRepository {
     }
 
     public Page<OpportunityEntity> getlatestPost(int page, int size){
-        return  opportunityDao.findAll(getPageRequestforRecentPost(page, size));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date  = new Date(System.currentTimeMillis());
+
+        return opportunityDao.findAllByDeadlineAfterOrDeadlineEquals(date,date,getPageRequestforRecentPost(page, size));
     }
 
 
     public static Pageable getPageRequestforRecentPost(int page,int size){
-        return PageRequest.of(page,size,Sort.by("deadline").descending());
+        return PageRequest.of(page,size,Sort.by("id").descending());
     }
 
     public static Pageable getPageRequestForIdDefending(int page, int size) {
         return PageRequest.of(page, size, Sort.by("ordering").ascending());
     }
-
-
-
 
 }
 

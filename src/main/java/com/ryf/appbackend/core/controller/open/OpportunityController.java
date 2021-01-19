@@ -150,12 +150,8 @@ public class OpportunityController {
         );
     }
 
-    @PostMapping(path="/v1/public/recentPosts")
-    public List<Opportunity> recentOpportunitybyDate(@RequestParam(value = "page",required = false,defaultValue = "0") int page,
-                                                     @RequestParam(value = "size",required = false,defaultValue = "8") int size
-    ){
 
-        return opportunityService.recentPostsByDate(page, size);
-    }
+
+
 
 }

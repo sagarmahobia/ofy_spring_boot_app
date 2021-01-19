@@ -1,6 +1,8 @@
 package com.ryf.appbackend.core.services;
 
 
+import com.ryf.appbackend.jpa.entities.enums.FundingType;
+import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.models.dto.Opportunities;
 import com.ryf.appbackend.core.repository.OpportunityRepository;
 import com.ryf.appbackend.jpa.entities.OpportunityEntity;
@@ -66,15 +68,13 @@ public class OpportunityService {
         List<OpportunityEntity> miscellaneous = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, OpportunityType.MISCELLANEOUS, page, size);
         opportunities.setMiscellaneous(opportunityUtil.getOpportunityFromEntityList(miscellaneous));
 
+        List<OpportunityEntity> recentPosts = opportunityRepository.getlatestPost(page,size).toList();
+        opportunities.setRecentPosts(opportunityUtil.getOpportunityFromEntityList(recentPosts));
+
         return opportunities;
 
     }
 
-    public List<Opportunity> recentPostsByDate(int page, int size){
-
-        return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getlatestPost(page, size).toList());
 
     }
 
-
-}
