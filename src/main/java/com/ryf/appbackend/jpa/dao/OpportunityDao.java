@@ -5,10 +5,12 @@ import com.ryf.appbackend.jpa.entities.enums.FundingType;
 import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
 import com.ryf.appbackend.jpa.entities.enums.Region;
 import com.ryf.appbackend.jpa.entities.user.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 
 @Repository
@@ -33,4 +35,6 @@ public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
     List<OpportunityEntity> findAllByFundingType(FundingType fundingType);
 
     List<OpportunityEntity> findAllByFundingTypeAndRegion(FundingType valueOf, Region valueOf1);
+
+    Page<OpportunityEntity> findAllByDeadlineAfterOrDeadlineEquals(Date date,Date date2, Pageable pageable);
 }
