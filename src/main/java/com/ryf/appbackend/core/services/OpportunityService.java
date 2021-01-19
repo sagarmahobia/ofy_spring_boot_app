@@ -68,35 +68,13 @@ public class OpportunityService {
         List<OpportunityEntity> miscellaneous = opportunityRepository.getOpportunitiesByPageAndSize(OpportunityType.WORKSHOPS, OpportunityType.MISCELLANEOUS, page, size);
         opportunities.setMiscellaneous(opportunityUtil.getOpportunityFromEntityList(miscellaneous));
 
+        List<OpportunityEntity> recentPosts = opportunityRepository.getlatestPost(page,size).toList();
+        opportunities.setRecentPosts(opportunityUtil.getOpportunityFromEntityList(recentPosts));
+
         return opportunities;
 
     }
 
-    public List<Opportunity> recentPostsByDate(int page, int size){
 
-        return opportunityUtil.getOpportunityFromEntityList(opportunityRepository.getlatestPost(page, size).toList());
-
-    }
-
-
-    public List<Opportunity> getoppotunitybyDeadline(String region,String type,int maxday, int minday) {
-
-        if (type.equalsIgnoreCase("any") || region.equalsIgnoreCase("any")) {
-
-            if (type.equalsIgnoreCase("any") && region.equalsIgnoreCase("any")) {
-                return opportunityUtil.getoppotunitybyDeadline(opportunityRepository.getOpportunitybyDeadline(),maxday,minday);
-            } else if (type.equalsIgnoreCase("any")) {
-                return opportunityUtil.getoppotunitybyDeadline(opportunityRepository.findAllByRegion(Region.valueOf(region)),maxday,minday);
-            } else {
-                return opportunityUtil.getoppotunitybyDeadline(opportunityRepository.findAllByFundingType(FundingType.valueOf(type)),maxday,minday);
-
-            }
-
-        } else {
-            return opportunityUtil.getoppotunitybyDeadline(opportunityRepository.findAllByFundingTypeAndRegion(FundingType.valueOf(type), Region.valueOf(region)),maxday,minday);
-        }
-
-
-       }
     }
 

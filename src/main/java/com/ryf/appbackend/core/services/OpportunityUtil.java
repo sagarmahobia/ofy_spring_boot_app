@@ -145,41 +145,5 @@ public class OpportunityUtil {
         return opportunity;
     }
 
-    public List<Opportunity> getoppotunitybyDeadline(List<OpportunityEntity> opportunityList, int maxday, int minday) {
 
-        List<Opportunity> deadlineList = new ArrayList<>();
-
-        //long t1 = System.currentTimeMillis();
-        if ((maxday != 0 && minday != 0) || (maxday!=0 && minday==0)) {
-
-            opportunityList
-                    .parallelStream()
-                    .map(this::getOpportunityFromEntity)
-                    .filter(opportunity->opportunity.getTimeLeft()!="Ended"
-                            && opportunity.getTimeLeft() != "Open"
-                    )
-                    .forEach(opportunity -> {
-                        if( opportunity.getTimeLeft().matches("[0-9]{0,4} Days Left")) {
-
-                            String[] data = opportunity.getTimeLeft().split(" ");
-
-                            int timeleft = Integer.parseInt(data[0]);
-
-                            if (timeleft >= minday && timeleft <= maxday)
-                                deadlineList.add(opportunity);
-                        }
-
-                        if(opportunity.getTimeLeft().contentEquals("Ending Today") || opportunity.getTimeLeft().contentEquals("Always Open"))
-                            deadlineList.add(opportunity);
-
-                    });
-            return deadlineList;
-        }
-        //long t2 = System.currentTimeMillis();
-
-        //out.println("Proccessing time : " + (t2-t1));
-        else
-            return deadlineList;
-
-    }
 }

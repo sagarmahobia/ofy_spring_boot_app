@@ -26,5 +26,6 @@ public class Opportunities {
     private List<Opportunity> workshops;
     private List<Opportunity> grants;
     private List<Opportunity> miscellaneous;
+    private List<Opportunity> recentPosts;
 
 }

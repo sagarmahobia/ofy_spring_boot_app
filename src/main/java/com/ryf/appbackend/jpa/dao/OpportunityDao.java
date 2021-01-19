@@ -32,9 +32,5 @@ public interface OpportunityDao extends JpaRepository<OpportunityEntity, Long> {
 
     List<OpportunityEntity> findAllByUser(User user, Pageable pageable);
 
-    List<OpportunityEntity> findAllByFundingType(FundingType fundingType);
-
-    List<OpportunityEntity> findAllByFundingTypeAndRegion(FundingType valueOf, Region valueOf1);
-
     Page<OpportunityEntity> findAllByDeadlineAfterOrDeadlineEquals(Date date,Date date2, Pageable pageable);
 }

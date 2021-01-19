@@ -93,7 +93,7 @@ public class OpportunityRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date  = new Date(System.currentTimeMillis());
 
-        return  opportunityDao.findAllByDeadlineAfterOrDeadlineEquals(date,date,getPageRequestforRecentPost(page, size));
+        return opportunityDao.findAllByDeadlineAfterOrDeadlineEquals(date,date,getPageRequestforRecentPost(page, size));
     }
 
 
@@ -105,25 +105,5 @@ public class OpportunityRepository {
         return PageRequest.of(page, size, Sort.by("ordering").ascending());
     }
 
-
-    public List<OpportunityEntity> getOpportunitybyDeadline() {
-
-        return opportunityDao.findAll();
-    }
-
-    public List<OpportunityEntity> findAllByRegion(Region valueOf) {
-
-        return opportunityDao.findAllByRegion(valueOf);
-    }
-
-    public List<OpportunityEntity> findAllByFundingType(FundingType valueOf) {
-
-        return opportunityDao.findAllByFundingType(valueOf);
-    }
-
-    public List<OpportunityEntity> findAllByFundingTypeAndRegion(FundingType valueOf, Region valueOf1) {
-
-        return opportunityDao.findAllByFundingTypeAndRegion(valueOf,valueOf1);
-    }
 }
 

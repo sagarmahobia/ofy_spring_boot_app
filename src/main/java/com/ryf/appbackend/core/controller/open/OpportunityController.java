@@ -150,21 +150,7 @@ public class OpportunityController {
         );
     }
 
-    @GetMapping(path="/v1/public/recentPosts")
-    public List<Opportunity> recentOpportunitybyDate(@RequestParam(value = "page",required = false,defaultValue = "0") int page,
-                                                     @RequestParam(value = "size",required = false,defaultValue = "8") int size
-    ){
 
-        return opportunityService.recentPostsByDate(page, size);
-    }
-
-    @GetMapping("/v1/public/filter/deadlines/{fundingtype}/{region}")
-    public List<Opportunity> getoppotunitybyDeadline(@RequestParam(value = "maxday",required = true) int maxday,
-                                                     @RequestParam(value = "minday",required = true) int minday,
-                                                     @PathVariable String region,@PathVariable String fundingtype){
-
-            return opportunityService.getoppotunitybyDeadline(region,fundingtype,maxday,minday);
-    }
 
 
 
