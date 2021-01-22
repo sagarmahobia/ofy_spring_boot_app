@@ -3,17 +3,12 @@ package com.ryf.appbackend.core.controller.admin;
 import java.util.Date;
 import java.util.List;
 
+import com.ryf.appbackend.core.repository.BannerRepository;
 import com.ryf.appbackend.core.services.OpportunityUtil;
 import com.ryf.appbackend.core.services.S3AmazonService;
-import com.ryf.appbackend.jpa.dao.ImageDao;
-import com.ryf.appbackend.jpa.dao.OpportunityDao;
-import com.ryf.appbackend.jpa.dao.SubmittedOpportunityDao;
-import com.ryf.appbackend.jpa.dao.UserDao;
-import com.ryf.appbackend.jpa.entities.Image;
-import com.ryf.appbackend.jpa.entities.OpportunityEntity;
-import com.ryf.appbackend.jpa.entities.enums.FundingType;
-import com.ryf.appbackend.jpa.entities.enums.OpportunityType;
-import com.ryf.appbackend.jpa.entities.enums.Region;
+import com.ryf.appbackend.jpa.dao.*;
+import com.ryf.appbackend.jpa.entities.*;
+import com.ryf.appbackend.jpa.entities.enums.*;
 import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
 import com.ryf.appbackend.jpa.entities.user.User;
 import com.ryf.appbackend.models.dto.Opportunity;
@@ -22,13 +17,7 @@ import com.ryf.appbackend.models.mappers.EntityToEntityMapper;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @SuppressWarnings("Duplicates")
@@ -39,19 +28,23 @@ public class ProtectedController {
     private final OpportunityDao opportunityDao;
     private final SubmittedOpportunityDao submittedOpportunityDao;
     private final ImageDao imageDao;
+    private final ArticlesDao articlesDao;
+    private final BannerRepository bannerDao;
+
     private S3AmazonService s3AmazonService;
     private UserDao userDao;
     private OpportunityUtil opportunityUtil;
 
     public ProtectedController(OpportunityDao opportunityDao, SubmittedOpportunityDao submittedOpportunityDao,
-            ImageDao imageDao, S3AmazonService s3AmazonService, UserDao userDao, OpportunityUtil opportunityUtil) {
+                               ImageDao imageDao, S3AmazonService s3AmazonService, UserDao userDao, OpportunityUtil opportunityUtil, ArticlesDao articlesDao, BannerRepository bannerDao) {
 
         this.opportunityDao = opportunityDao;
         this.submittedOpportunityDao = submittedOpportunityDao;
+        this.articlesDao = articlesDao;
         this.imageDao = imageDao;
         this.userDao = userDao;
         this.s3AmazonService = s3AmazonService;
-
+        this.bannerDao = bannerDao;
         this.opportunityUtil = opportunityUtil;
     }
 
@@ -320,6 +313,44 @@ public class ProtectedController {
     @ResponseBody
     public Opportunity opportunity(@RequestParam("id") Long id) {
         return opportunityUtil.getOpportunityFromSubmittedEntity(submittedOpportunityDao.getOne(id));
+    }
+
+
+    @PostMapping("/v1/protected/admin/add_article")
+    public Status addArticle(@RequestParam(value = "heading",required = false) String heading
+                            , @RequestParam(value = "headingType",required = false) String headingType
+                            , @RequestParam(value = "headingLink",required = false) String headingLink
+                            , @RequestParam(value = "imageLink",required = false) String imageLink
+                            , @RequestParam(value = "catagory",required = false)String catagory
+                            , @RequestParam(value = "subCatagory",required = false)String subCatagory
+    ) {
+
+        articlesDao.save(ArticlesEntity.builder()
+                .heading(heading)
+                .headingType(headingType)
+                .headingLink(headingLink)
+                .imageLink(imageLink)
+                .catagory(catagory)
+                .subCatagory(subCatagory)
+                .build());
+
+
+        return Status.builder().status("Success").build();
+    }
+
+
+    @PostMapping("/v1/protected/admin/add_banner")
+    public Status addBanner(
+                            @RequestParam(value = "link",required = true) String link,
+                            @RequestParam(value = "banner",required = true) String banner
+    ){
+
+        bannerDao.saveBannerEntity(BannerEntity.builder()
+                .banner(banner)
+                .link(link)
+                .build());
+
+        return Status.builder().status("Success").build();
     }
 
 }
