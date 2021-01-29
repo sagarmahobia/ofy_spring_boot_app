@@ -1,6 +1,10 @@
 package com.ryf.appbackend.models.dto;
 
+import com.ryf.appbackend.jpa.entities.CatagoryEntity;
+import com.ryf.appbackend.jpa.entities.SubCatagoryEntity;
 import lombok.*;
+
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -19,9 +23,9 @@ public class Article {
 
     private String imageLink;
 
-    private String catagory;
+    private CatagoryEntity catagory;
 
-    private String subCatagory;
+    private List<SubCatagoryEntity> subCatagoryEntity;
 
 
 }
