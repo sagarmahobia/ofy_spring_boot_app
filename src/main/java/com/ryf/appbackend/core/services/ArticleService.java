@@ -36,7 +36,6 @@ public class ArticleService {
                 .headingLink(entity.getHeadingLink())
                 .headingType(entity.getHeadingType())
                 .imageLink(entity.getImageLink())
-                .subCatagoryEntity(entity.getSubCatagoryEntity())
                 .catagory(entity.getCatagoryEntity())
                 .id(entity.getId())
                 .build();
@@ -72,104 +71,36 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-    public void saveArticle(String headingLink, String heading, String headingType, String imageLink, Long catagoryid, List<SubCatagory> subCatagoryEntity, String newcatagory, List<String> newSubcatagory) {
-            List<SubCatagoryEntity> newSubCatagorylist = new ArrayList<>();
+    public void saveArticle(String headingLink, String heading, String headingType, String imageLink, Long catagoryid) {
 
-
-            if(!newSubcatagory.isEmpty()){
-
-                        newSubcatagory.stream()
-                        .map(r-> SubCatagoryEntity.builder().subCatagoryName(r).build())
-                        .map(subCatagoryDao::save)
-                        .forEach(newSubCatagorylist::add);
-            }
-
-            if(!subCatagoryEntity.isEmpty()){
-
-                         subCatagoryEntity.stream()
-                        .map(this::newSubCatagorytoEntity)
-                        .forEach(newSubCatagorylist::add);
-
-            }
-
-            if(newcatagory != "NO_VALUE"){
-
-              CatagoryEntity  entity = catagoryDao.save(CatagoryEntity
-                                            .builder()
-                                            .catagoryName(newcatagory)
-                                            .build());
-
-                articleRepository.save(ArticlesEntity.builder()
-                .heading(heading)
-                .headingLink(headingLink)
-                .catagoryEntity(entity)
-                .subCatagoryEntity(newSubCatagorylist)
-                .headingType(headingType)
+        articleRepository.save(ArticlesEntity.builder()
                 .imageLink(imageLink)
-                .build());
-            }else{
-                articleRepository.save(ArticlesEntity.builder()
-                        .heading(heading)
-                        .headingLink(headingLink)
-                        .headingType(headingType)
-                        .imageLink(imageLink)
-                        .catagoryEntity(catagoryDao.getOne(catagoryid))
-                        .subCatagoryEntity(newSubCatagorylist)
-                        .build());
-            }
-
+                .headingType(headingType)
+                .headingLink(headingLink)
+                .heading(heading)
+                .catagoryEntity(catagoryDao.getOne(catagoryid)).build());
     }
 
-    public void editArticle(Long id,String headingLink, String heading, String headingType, String imageLink, Long catagoryid, List<SubCatagory> subCatagoryEntity, String newcatagory, List<String> newSubcatagory) {
-        List<SubCatagoryEntity> newSubCatagorylist = new ArrayList<>();
 
+    public void editArticle(Long id,String headingLink, String heading, String headingType, String imageLink, Long catagoryid) {
+        ArticlesEntity entity = articleRepository.getArticleonid(id);
 
-        if(!newSubcatagory.isEmpty()){
-
-            newSubcatagory.stream()
-                    .map(r-> SubCatagoryEntity.builder().subCatagoryName(r).build())
-                    .map(subCatagoryDao::save)
-                    .forEach(newSubCatagorylist::add);
+        if(!headingLink.isEmpty())
+            entity.setHeadingLink(headingLink);
+        if(!heading.isEmpty())
+            entity.setHeading(heading);
+        if(!headingType.isEmpty())
+            entity.setHeadingType(headingType);
+        if(!imageLink.isEmpty())
+            entity.setImageLink(imageLink);
+        if(catagoryid != null) {
+            CatagoryEntity catagoryEntity = catagoryDao.getOne(catagoryid);
+            entity.setCatagoryEntity(catagoryEntity);
         }
+        articleRepository.save(entity);
 
-        if(!subCatagoryEntity.isEmpty()){
 
-            subCatagoryEntity.stream()
-                    .map(this::newSubCatagorytoEntity)
-                    .forEach(newSubCatagorylist::add);
 
-        }
-
-        if(newcatagory != "NO_VALUE"){
-
-            CatagoryEntity  entity = catagoryDao.save(CatagoryEntity
-                    .builder()
-                    .catagoryName(newcatagory)
-                    .build());
-
-            ArticlesEntity entity1 = articleRepository.getArticleonid(id);
-
-            entity1.setHeading(heading);
-            entity1.setHeadingLink(headingLink);
-            entity1.setImageLink(imageLink);
-            entity1.setHeadingType(headingType);
-            entity1.setCatagoryEntity(entity);
-            entity1.setSubCatagoryEntity(newSubCatagorylist);
-            articleRepository.save(entity1);
-
-        }else{
-
-            ArticlesEntity entity1 = articleRepository.getArticleonid(id);
-
-            entity1.setHeading(heading);
-            entity1.setHeadingLink(headingLink);
-            entity1.setImageLink(imageLink);
-            entity1.setHeadingType(headingType);
-            entity1.setCatagoryEntity(catagoryDao.getOne(catagoryid));
-            entity1.setSubCatagoryEntity(newSubCatagorylist);
-
-            articleRepository.save(entity1);
-        }
 
     }
 }

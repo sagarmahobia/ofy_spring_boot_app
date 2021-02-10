@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "Catagory")
 @Data
@@ -21,5 +22,7 @@ public class CatagoryEntity {
     @Column(name = "catagory_name",columnDefinition = "varchar(255) not null unique")
     private String catagoryName;
 
-
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "subCatagory_id")
+    private List<SubCatagoryEntity> subCatagoryEntity;
 }

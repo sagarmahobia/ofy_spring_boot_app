@@ -16,11 +16,13 @@ import javax.persistence.*;
 public class SubCatagoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "subcatagory_Name",columnDefinition = "varchar(255) not null unique")
     private String subCatagoryName;
 
+    @Column(name = "parentCatagory_id",columnDefinition = "int(11)")
+    private Long parentCatagoryId;
 
 }

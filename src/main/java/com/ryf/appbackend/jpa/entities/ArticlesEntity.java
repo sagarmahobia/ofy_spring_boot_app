@@ -34,8 +34,5 @@ public class ArticlesEntity {
     @JoinColumn(name = "catagory_id")
     private CatagoryEntity catagoryEntity;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "subCatagory_id")
-    private List<SubCatagoryEntity> subCatagoryEntity;
 
 }

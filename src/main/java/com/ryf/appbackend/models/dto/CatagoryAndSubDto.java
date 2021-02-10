@@ -5,17 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
+import java.util.List;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class SubCatagory {
+@NoArgsConstructor
+public class CatagoryAndSubDto {
 
-    private Long id;
+    private List<ArticleCatagoryDto> articleCatagoryDtoList;
+    private List<SubCatagory> subCatagoryList;
 
-    private String subCatagoryName;
-
-    private Long parentCatagoryId;
 }
