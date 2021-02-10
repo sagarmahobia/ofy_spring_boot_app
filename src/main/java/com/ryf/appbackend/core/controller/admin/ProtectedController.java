@@ -2,10 +2,8 @@ package com.ryf.appbackend.core.controller.admin;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.ryf.appbackend.core.services.ArticleService;
-import com.ryf.appbackend.core.services.CatagoryService;
+import com.ryf.appbackend.core.repository.BannerRepository;
 import com.ryf.appbackend.core.services.OpportunityUtil;
 import com.ryf.appbackend.core.services.S3AmazonService;
 import com.ryf.appbackend.jpa.dao.*;
@@ -15,8 +13,6 @@ import com.ryf.appbackend.jpa.entities.user.SubmittedOpportunityEntity;
 import com.ryf.appbackend.jpa.entities.user.User;
 import com.ryf.appbackend.models.dto.Opportunity;
 import com.ryf.appbackend.models.dto.Status;
-import com.ryf.appbackend.models.dto.SubCatagory;
-import com.ryf.appbackend.models.dto.catagory;
 import com.ryf.appbackend.models.mappers.EntityToEntityMapper;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -33,17 +29,14 @@ public class ProtectedController {
     private final SubmittedOpportunityDao submittedOpportunityDao;
     private final ImageDao imageDao;
     private final ArticlesDao articlesDao;
-    private final BannerDao bannerDao;
-    private final ArticleService articleService;
-    private final CatagoryService catagoryService;
+    private final BannerRepository bannerDao;
 
     private S3AmazonService s3AmazonService;
     private UserDao userDao;
     private OpportunityUtil opportunityUtil;
 
     public ProtectedController(OpportunityDao opportunityDao, SubmittedOpportunityDao submittedOpportunityDao,
-                               ImageDao imageDao, S3AmazonService s3AmazonService, UserDao userDao, OpportunityUtil opportunityUtil,
-                               ArticlesDao articlesDao, BannerDao bannerDao,ArticleService articleService,CatagoryService catagoryService) {
+                               ImageDao imageDao, S3AmazonService s3AmazonService, UserDao userDao, OpportunityUtil opportunityUtil, ArticlesDao articlesDao, BannerRepository bannerDao) {
 
         this.opportunityDao = opportunityDao;
         this.submittedOpportunityDao = submittedOpportunityDao;
@@ -53,8 +46,6 @@ public class ProtectedController {
         this.s3AmazonService = s3AmazonService;
         this.bannerDao = bannerDao;
         this.opportunityUtil = opportunityUtil;
-        this.articleService = articleService;
-        this.catagoryService = catagoryService;
     }
 
     @PostMapping(path = "/v1/protected/admin/add_opportunity")
@@ -325,80 +316,26 @@ public class ProtectedController {
     }
 
 
-    @PostMapping("/v1/protected/admin/add_catagory")
-    public Status addCatagory(@RequestParam(value = "catagoryName",required = true) String catagoryName){
-
-        catagoryService.saveCatagory(CatagoryEntity.builder()
-                .catagoryName(catagoryName)
-                .build());
-
-        return Status.builder().status("Catagory saved").build();
-    }
-
-    @PostMapping("/v1/protected/admin/add_subCatagorylist")
-    public Status addSubCatagoryList(@RequestParam(required = true) Long catagoryId,
-                                     @RequestBody List<String> subCatagoryList){
-
-        List<SubCatagoryEntity> list = subCatagoryList.stream()
-                .map(r-> SubCatagoryEntity.builder().parentCatagoryId(catagoryId).subCatagoryName(r).build())
-                .collect(Collectors.toList());
-
-        catagoryService.addSubCatagoryListtoCatagory(list);
-
-        return Status.builder().status("SubCatagoryList added to Catagory").build();
-    }
-
-    @PostMapping("/v1/protected/admin/add_subCatagory")
-    public Status addSubCatagory(@RequestParam(value = "catagoryId",required = true) Long catagoryId,
-                                 @RequestParam(value = "subCatagoryName",required = true) String subCatagoryName){
-
-        catagoryService.addSubCatagorytoCatagory(SubCatagoryEntity.builder()
-                .subCatagoryName(subCatagoryName)
-                .parentCatagoryId(catagoryId)
-                .build());
-
-        return Status.builder().status("SubCatagory Added").build();
-    }
-
     @PostMapping("/v1/protected/admin/add_article")
     public Status addArticle(@RequestParam(value = "heading",required = false) String heading
-            , @RequestParam(value = "headingType",required = false) String headingType
-            , @RequestParam(value = "headingLink",required = false) String headingLink
-            , @RequestParam(value = "imageLink",required = false) String imageLink
-            , @RequestParam(value = "catagoryId",required = false) Long catagoryid
-
-
+                            , @RequestParam(value = "headingType",required = false) String headingType
+                            , @RequestParam(value = "headingLink",required = false) String headingLink
+                            , @RequestParam(value = "imageLink",required = false) String imageLink
+                            , @RequestParam(value = "catagory",required = false)String catagory
+                            , @RequestParam(value = "subCatagory",required = false)String subCatagory
     ) {
 
-        articleService.saveArticle(heading,headingLink,headingType,imageLink,catagoryid);
+        articlesDao.save(ArticlesEntity.builder()
+                .heading(heading)
+                .headingType(headingType)
+                .headingLink(headingLink)
+                .imageLink(imageLink)
+                .catagory(catagory)
+                .subCatagory(subCatagory)
+                .build());
 
 
         return Status.builder().status("Success").build();
-    }
-
-    @PostMapping("/v1/protected/admin/edit_article")
-    public Status editArticle(@RequestParam(value = "id",required = true) Long id
-            ,@RequestParam(value = "heading",required = false,defaultValue = "") String heading
-            ,@RequestParam(value = "headingType",required = false,defaultValue = "") String headingType
-            ,@RequestParam(value = "headingLink",required = false,defaultValue = "") String headingLink
-            ,@RequestParam(value = "imageLink",required = false,defaultValue = "") String imageLink
-            ,@RequestParam(value = "catagoryId",required = false,defaultValue = "null") Long catagoryid
-    ){
-
-
-        articleService.editArticle(id,headingLink,heading,headingType,imageLink,catagoryid);
-
-        return Status.builder().status("Item edit Successful").build();
-    }
-
-
-
-    @DeleteMapping("/v1/protected/admin/delete_article")
-    public Status deleteArticle(@RequestParam(value = "id",required = true) Long id){
-
-        articlesDao.deleteById(id);
-
-        return Status.builder().status("Article Deleted").build();
     }
 
 
@@ -408,37 +345,12 @@ public class ProtectedController {
                             @RequestParam(value = "banner",required = true) String banner
     ){
 
-        bannerDao.save(BannerEntity.builder()
+        bannerDao.saveBannerEntity(BannerEntity.builder()
                 .banner(banner)
                 .link(link)
                 .build());
 
         return Status.builder().status("Success").build();
     }
-
-    @PostMapping("/v1/protected/admin/edit_banner")
-    public Status editBanner(
-                        @RequestParam(value = "id",required = true) Long id,
-                        @RequestParam(value = "link",required = true) String link,
-                        @RequestParam(value = "banner",required = true) String banner
-    ){
-        BannerEntity entity = bannerDao.getOne(id);
-        entity.setBanner(banner);
-        entity.setLink(link);
-
-        bannerDao.save(entity);
-
-
-        return Status.builder().status("banner edit successful").build();
-    }
-
-    @DeleteMapping("/v1/protected/admin/delete_banner")
-    public Status deleteBanner(@RequestParam(value = "id",required = true) Long id){
-        bannerDao.deleteById(id);
-
-        return Status.builder().status("Banner Deleted").build();
-    }
-
-
 
 }
