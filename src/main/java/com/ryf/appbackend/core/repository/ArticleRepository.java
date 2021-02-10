@@ -21,6 +21,9 @@ public class ArticleRepository {
 
 
 
+    public void save(ArticlesEntity articlesEntity){
+        articlesDao.save(articlesEntity);
+    }
 
     public ArticlesEntity getArticleonid(Long id){
 
@@ -34,5 +37,10 @@ public class ArticleRepository {
 
     public static Pageable getPageRequestforArticles(int page, int size){
         return PageRequest.of(page,size, Sort.by("id").ascending());
+    }
+
+    public Page<ArticlesEntity> getArticlesonHeadingandHeadingType(String heading, String headingtype, int page, int size) {
+
+        return articlesDao.findAllByHeadingAndAndHeadingType(heading,headingtype,getPageRequestforArticles(page, size));
     }
 }
