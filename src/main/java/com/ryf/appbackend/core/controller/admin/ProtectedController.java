@@ -325,7 +325,7 @@ public class ProtectedController {
     }
 
 
-    @PostMapping("/v1/admin/add_catagory")
+    @PostMapping("/v1/protected/admin/add_catagory")
     public Status addCatagory(@RequestParam(value = "catagoryName",required = true) String catagoryName){
 
         catagoryService.saveCatagory(CatagoryEntity.builder()
@@ -335,7 +335,7 @@ public class ProtectedController {
         return Status.builder().status("Catagory saved").build();
     }
 
-    @PostMapping("/v1/admin/add_subCatagorylist")
+    @PostMapping("/v1/protected/admin/add_subCatagorylist")
     public Status addSubCatagoryList(@RequestParam(required = true) Long catagoryId,
                                      @RequestBody List<String> subCatagoryList){
 
@@ -348,7 +348,7 @@ public class ProtectedController {
         return Status.builder().status("SubCatagoryList added to Catagory").build();
     }
 
-    @PostMapping("/v1/admin/add_subCatagory")
+    @PostMapping("/v1/protected/admin/add_subCatagory")
     public Status addSubCatagory(@RequestParam(value = "catagoryId",required = true) Long catagoryId,
                                  @RequestParam(value = "subCatagoryName",required = true) String subCatagoryName){
 
@@ -360,7 +360,7 @@ public class ProtectedController {
         return Status.builder().status("SubCatagory Added").build();
     }
 
-    @PostMapping("/v1/admin/add_article")
+    @PostMapping("/v1/protected/admin/add_article")
     public Status addArticle(@RequestParam(value = "heading",required = false) String heading
             , @RequestParam(value = "headingType",required = false) String headingType
             , @RequestParam(value = "headingLink",required = false) String headingLink
@@ -376,7 +376,7 @@ public class ProtectedController {
         return Status.builder().status("Success").build();
     }
 
-    @PostMapping("/v1/admin/edit_article")
+    @PostMapping("/v1/protected/admin/edit_article")
     public Status editArticle(@RequestParam(value = "id",required = true) Long id
             ,@RequestParam(value = "heading",required = false,defaultValue = "") String heading
             ,@RequestParam(value = "headingType",required = false,defaultValue = "") String headingType
