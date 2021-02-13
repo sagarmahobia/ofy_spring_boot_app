@@ -3,7 +3,6 @@ package com.ryf.appbackend.jpa.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity(name = "Articles")
 @AllArgsConstructor
@@ -30,9 +29,10 @@ public class ArticlesEntity {
     @Column(name = "image_link",columnDefinition = "varchar(255) not null")
     private String imageLink;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "catagory_id")
-    private CatagoryEntity catagoryEntity;
+    @Column(name = "catagory")
+    private String catagory;
 
+    @Column(name = "sub_catagory")
+    private String subCatagory;
 
 }

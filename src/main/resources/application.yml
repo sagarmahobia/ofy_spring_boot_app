@@ -4,7 +4,6 @@
 #      springframework:
 #        web: DEBUG
 
-
 spring:
   datasource:
     password: ${DB_PASSWORD}
@@ -36,11 +35,4 @@ application:
 
 server:
   port: 8888
-
-
-
-
-
-
-
 
