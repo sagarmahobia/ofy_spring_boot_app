@@ -29,10 +29,7 @@ public class ArticlesEntity {
     @Column(name = "image_link",columnDefinition = "varchar(255) not null")
     private String imageLink;
 
-    @Column(name = "catagory")
-    private String catagory;
-
-    @Column(name = "sub_catagory")
-    private String subCatagory;
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "catagory_id")
+    private CatagoryEntity catagoryEntity;
 }

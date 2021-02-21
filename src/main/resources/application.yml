@@ -4,6 +4,13 @@
 #      springframework:
 #        web: DEBUG
 
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: DEBUG
+
+
 spring:
   datasource:
     password: ${DB_PASSWORD}
